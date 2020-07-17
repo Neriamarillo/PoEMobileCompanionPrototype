@@ -20,12 +20,9 @@ struct ItemListModel {
                                "UniqueJewelIcon", "UniqueFlaskIcon", "UniqueWeaponIcon", "UniqueArmourIcon",
                                "UniqueAccessoryIcon", "BeastIcon", "VialIcon"]
     
-    //    var isCurrencyOrItem: [String] = ["currencyoverview", "itemoverview"]
-    
     var itemTypeStrings: [String] = ["Currency", "Fragments", "Delirium Orbs", "Watchstones", "Oils",
                                      "Incubators", "Scarabs", "Fossils", "Resonators", "Essences", "Divination Cards",
                                      "Prophecies", "Skill Gems", "Base Types", "Helmet Enchants", "Unique Maps", "Maps", "Unique Jewels",
                                      "Unique Flasks", "Unique Weapons", "Unique Armours", "Unique Accessories", "Beasts", "Vials"]
     
 }
-// Figure out how to call each item from the tableView and pick the correct itemType and identify wether it isCurrencyOrItem to add to the url.

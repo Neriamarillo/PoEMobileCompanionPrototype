@@ -10,8 +10,8 @@ import Foundation
 
 protocol ItemManagerDelegate {
     
-    func didFetchCurrency(_ currencyManager: ItemManager, currency: CurrencyModel)
-    func didFetchItems(_ itemManager: ItemManager, items: [Item])
+    func didFetchCurrency(_ currencyManager: ItemManager, currencies: [ItemModel])
+    func didFetchItems(_ itemManager: ItemManager, items: [ItemModel])
     func didFailWithError(error: Error)
 }
 
@@ -22,7 +22,7 @@ struct ItemManager {
     
     
     var delegate: ItemManagerDelegate?
-
+    
     
     mutating func fetchItems(itemType: String)  {
         var itemTypeOverview: String
@@ -53,8 +53,8 @@ struct ItemManager {
                                 self.delegate?.didFetchItems(self, items: items)
                         }
                         default:
-                            if let currency = self.parseCurrencyJSON(safeData) {
-                                self.delegate?.didFetchCurrency(self, currency: currency)
+                            if let currencies = self.parseCurrencyJSON(safeData) {
+                                self.delegate?.didFetchCurrency(self, currencies: currencies)
                         }
                     }
                 }
@@ -63,21 +63,20 @@ struct ItemManager {
         }
     }
     
-     func parseItemJSON(_ itemData: Data) -> [Item]? {
-        var itemArray = [Item]()
+    func parseItemJSON(_ itemData: Data) -> [ItemModel]? {
+        var itemArray = [ItemModel]()
         let decoder = JSONDecoder()
         do {
-            
             let decodedData = try decoder.decode(ItemData.self, from: itemData)
-            itemArray = decodedData.lines
-//            let item = decodedData.lines[0]
-//            let id = item.id
-//            let name = item.name
-//            let icon = item.icon
-//            let chaosPrice = item.chaosValue
-//            let exaltPrice = item.exaltedValue
-//            let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: chaosPrice, priceInExalt: exaltPrice)
-//            return parsedItem
+            for item in decodedData.info {
+                let id = item.id
+                let name = item.name
+                let value = item.chaosValue
+                let totalChange = item.sparkline.totalChange
+                let icon = item.icon
+                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
+                itemArray.append(parsedItem)
+            }
             return itemArray
         } catch {
             delegate?.didFailWithError(error: error)
@@ -85,23 +84,25 @@ struct ItemManager {
         }
     }
     
-    func parseCurrencyJSON(_ currencyData: Data) -> CurrencyModel? {
+    func parseCurrencyJSON(_ currencyData: Data) -> [ItemModel]? {
+        var currencyArray = [ItemModel]()
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-            let item = decodedData.lines[0]
-            let itemDetails = decodedData.currencyDetails[0]
-            let currencyName = item.currencyTypeName
-            let id = item.receive.getCurrencyId - 1
-            let value = item.chaosEquivalent
-            let change = item.receiveSparkLine.totalChange
-            let icon = itemDetails.icon
-            
-            let currency = CurrencyModel(currencyName: currencyName, currencyId: id, value: value, totalChage: change, icon: icon)
-            return currency
+            for item in decodedData.info {
+                let id = item.receive.id
+                let name = item.name
+                let value = item.chaosValue
+                let totalChange = item.sparkLine.totalChange
+                let icon = decodedData.details[id - 1].icon
+                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
+                currencyArray.append(currencyItem)
+            }
+            return currencyArray
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
         }
     }
+
 }

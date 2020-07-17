@@ -17,29 +17,27 @@ class ItemSublistViewController : UITableViewController {
     
     var selectedItem : String?
     var selectedItemString : String?
+    var itemType: String?
     var itemManager = ItemManager()
-    var itemArray = [Item]()
-    var currencyArray = [CurrencyModel]()
-    
+    var itemArray = [ItemModel]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        currencyManager.fetchItems(itemType: selectedItem!)
-        itemManager.delegate = self
         
         
-        //        itemSublistTableView.dataSource = self
-        //        itemSublistTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        itemManager.delegate = self
         navigationItem.title = selectedItemString
+        
         let backgroundImage = UIImage(named: "harvest-bg" )
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
         loadItems()
+        
     }
     
     //    //MARK: - TableView Datasource Methods
@@ -56,6 +54,7 @@ class ItemSublistViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemSublistTableViewCell", for: indexPath) as! ItemSublistTableViewCell
         
         let item = itemArray[indexPath.row]
+        
         print(item.name)
         
         if indexPath.row % 2 == 0 {
@@ -67,15 +66,15 @@ class ItemSublistViewController : UITableViewController {
         cell.itemLabel?.text = item.name
         cell.itemLabel?.textColor = UIColor.white
         
-        if item.sparkline.totalChange ?? 0 > 0 {
+        if item.totalChange > 0 {
             cell.priceChangeLabel?.textColor = UIColor.green
-        } else if item.sparkline.totalChange ?? 0 < 0 {
+        } else if item.totalChange < 0 {
             cell.priceChangeLabel?.textColor = UIColor.red
         } else {
             cell.priceChangeLabel?.textColor = UIColor.white
         }
-        cell.priceChangeLabel?.text = "\(item.sparkline.totalChange ?? 0)%"
-        cell.currentPriceLabel?.text = String(item.chaosValue)
+        cell.priceChangeLabel?.text = "\(item.totalChangeString)%"
+        cell.currentPriceLabel?.text = "\(item.valueString)x"
         cell.currentPriceLabel?.textColor = #colorLiteral(red: 0.9137254902, green: 0.8117647059, blue: 0.6235294118, alpha: 1)
         if let iconUrl = item.icon {
             let url = URL(string: iconUrl)
@@ -88,6 +87,11 @@ class ItemSublistViewController : UITableViewController {
     }
     
     //MARK: - TableView Delegate Methods
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //        performSegue(withIdentifier: "goToItems", sender: self)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     //        let destinationVC = segue.destination as! ItemDetailsViewController
     //
@@ -100,22 +104,33 @@ class ItemSublistViewController : UITableViewController {
     func loadItems() {
         itemManager.fetchItems(itemType: selectedItem!)
     }
-    
 }
 
 
 
 //MARK: - ItemManagerDelegate
 extension ItemSublistViewController: ItemManagerDelegate {
-    func didFetchItems(_ itemManager: ItemManager, items: [Item]) {
+    
+    func didFetchItems(_ itemManager: ItemManager, items: [ItemModel]) {
         itemArray = items
-        DispatchQueue.main.async{
+        // Apple recommended?
+        OperationQueue.main.addOperation({
             self.tableView.reloadData()
-        }
+        })
+        // Working
+        //        DispatchQueue.main.async {
+        //            self.tableView.reloadData()
+        //        }
     }
     
-    func didFetchCurrency(_ currencyManager: ItemManager, currency: CurrencyModel) {
-        print(currency)
+    func didFetchCurrency(_ currencyManager: ItemManager, currencies: [ItemModel]) {
+        itemArray = currencies
+        OperationQueue.main.addOperation({
+            self.tableView.reloadData()
+        })
+        //                DispatchQueue.main.async {
+        //                    self.tableView.reloadData()
+        //                }
     }
     
     func didFailWithError(error: Error) {
@@ -123,6 +138,7 @@ extension ItemSublistViewController: ItemManagerDelegate {
     }
 }
 
+//MARK: - Item Image Handler
 extension UIImageView {
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in

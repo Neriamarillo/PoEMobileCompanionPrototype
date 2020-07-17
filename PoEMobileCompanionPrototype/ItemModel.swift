@@ -9,9 +9,18 @@
 import Foundation
 
 struct ItemModel {
-    let id: Float
+    let id: Int
     let name: String
-    let icon: String
+    let icon: String?
     let priceInChaos: Double
-    let priceInExalt: Double
+//    let priceInExalt: Double
+    let totalChange: Double
+    
+    var valueString: String {
+        return String(format: ".1f", priceInChaos)
+    }
+    
+    var totalChangeString: String {
+        return String(format: ".2f", totalChange)
+    }
 }

@@ -9,41 +9,46 @@
 import Foundation
 
 struct CurrencyData: Codable {
-    let lines: [CurrencyItem]
-    let currencyDetails: [CurrencyDetails]
+    let info: [Currency]
+    let details: [CurrencyDetails]
+    
+    enum CodingKeys: String, CodingKey {
+        case info = "lines"
+        case details = "currencyDetails"
+    }
 }
 
-struct CurrencyItem: Codable {
-    let currencyTypeName: String
+struct Currency: Codable {
+    let name: String
     let receive: Buy
-    let chaosEquivalent: Double
-    let receiveSparkLine: CurrencySparkLine
-    let detailsId: String
+    let chaosValue: Double
+    let sparkLine: CurrencySparkLine
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "currencyTypeName"
+        case receive
+        case chaosValue = "chaosEquivalent"
+        case sparkLine = " receiveSparkLine"
+    }
 }
 
 struct Buy: Codable {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case leagueId = "league_id"
-        case payCurrencyId = "pay_currency_id"
-        case getCurrencyId = "get_currency_id"
-        case value
-    }
     let id: Int
     let leagueId: Int
-    let payCurrencyId: Int
-    let getCurrencyId: Int
-    let value: Float
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "get_currency_id"
+        case leagueId = "league_id"
+    }
 }
 
 struct CurrencySparkLine: Codable {
-    let data: [Float]
+    let data: [Float?]
     let totalChange: Double
 }
 
 struct CurrencyDetails: Codable {
-    let id: Int
+    let id: Float
     let icon: String
     let name: String
-    
 }

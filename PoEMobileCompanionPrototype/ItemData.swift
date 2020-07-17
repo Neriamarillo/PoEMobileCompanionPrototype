@@ -9,11 +9,15 @@
 import Foundation
 
 struct ItemData: Codable {
-    let lines: [Item]
+    let info: [Item]
+    
+    enum CodingKeys: String, CodingKey {
+        case info = "lines"
+    }
 }
 
 struct Item: Codable {
-    let id: Float
+    let id: Int
     let name: String
     let icon: String?
     let mapTier: Int?
@@ -24,5 +28,5 @@ struct Item: Codable {
 
 struct ItemSparkLine: Codable {
     let data: [Float?]
-    let totalChange: Double?
+    let totalChange: Double
 }
