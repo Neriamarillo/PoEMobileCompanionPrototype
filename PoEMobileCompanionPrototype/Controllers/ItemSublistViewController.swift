@@ -37,8 +37,9 @@ class ItemSublistViewController : UITableViewController {
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
-        searchBar.barTintColor = #colorLiteral(red: 0.07843137255, green: 0.07888896018, blue: 0.0778471455, alpha: 1)
         searchBar.searchTextField.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+        searchBar.searchTextField.leftView?.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+        searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)])
         navigationItem.hidesSearchBarWhenScrolling = false
         
         loadItems()
@@ -64,33 +65,25 @@ class ItemSublistViewController : UITableViewController {
         } else {
             cell.backgroundColor = #colorLiteral(red: 0.06291490793, green: 0.06269240379, blue: 0.06683042645, alpha: 1).withAlphaComponent(0.8)
         }
-        
         cell.itemLabel?.text = item.name
-        cell.itemLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
-        
         if item.totalChange > 0 {
             cell.priceChangeLabel?.textColor = UIColor.green
         } else if item.totalChange < 0 {
             cell.priceChangeLabel?.textColor = UIColor.red
         } else {
-            cell.priceChangeLabel?.textColor = UIColor.white
+            cell.priceChangeLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         }
         cell.priceChangeLabel?.text = "\(item.totalChange)%"
         cell.currentPriceLabel?.text = "\(item.priceInChaos)x"
-        cell.currentPriceLabel?.textColor = #colorLiteral(red: 0.9137254902, green: 0.8117647059, blue: 0.6235294118, alpha: 1)
+        
         if let iconUrl = item.icon {
             let url = URL(string: iconUrl)
             cell.itemImageView.load(url: url!)
         }
-        
         cell.currentPriceIcon.image = UIImage(named: "CurrencyIcon")
         if selectedItem == "SkillGem" {
-//            cell.gemLevelLabel?.isEnabled = true
-//            cell.gemQualityLabel?.isEnabled = true
-            cell.gemLevelLabel?.text = String(item.gemLevel!)
-            cell.gemLevelLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
-            cell.gemQualityLabel?.text = String(item.gemQuality!)
-            cell.gemQualityLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+            cell.gemLevelLabel?.text = "Level: \(item.gemLevel!)"
+            cell.gemQualityLabel?.text = "Quality: \(item.gemQuality!)"
         } else {
             cell.gemLevelLabel?.isHidden = true
             cell.gemQualityLabel?.isHidden = true

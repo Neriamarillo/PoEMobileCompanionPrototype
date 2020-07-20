@@ -108,7 +108,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LU-DY-3ng">
                                                             <rect key="frame" x="72" y="25" width="0.0" height="0.0"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="TradeTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -280,13 +280,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="7qH-PU-wWZ">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" name="TradeDark"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                                <string>Title</string>
+                            </scopeButtonTitles>
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemSublistTableViewCell" rowHeight="80" id="Nrf-Uh-bin" userLabel="ItemSublistTableViewCell" customClass="ItemSublistTableViewCell" customModule="PoEMobileCompanionPrototype" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Nrf-Uh-bin" id="JvQ-D3-BmJ">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -308,7 +313,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="item label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZo-qw-KGV">
                                                             <rect key="frame" x="64" y="4" width="342" height="42"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="TradeTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -334,7 +339,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="currPrice" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZg-Ng-WCD">
                                                             <rect key="frame" x="267" y="8" width="52" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="TradeTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="change%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oq-wp-t3Y">
@@ -346,16 +351,16 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7hE-lS-Wpj" userLabel="Gem Info">
                                                             <rect key="frame" x="17" y="0.5" width="30" height="29"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ch3-Ba-ene">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ch3-Ba-ene">
                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="14.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" name="TradeTextColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gQ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47O-cM-rkW">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gQ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47O-cM-rkW">
                                                                     <rect key="frame" x="0.0" y="14.5" width="30" height="14.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" name="TradeTextColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -372,7 +377,7 @@
                                                         <constraint firstItem="fvi-kN-85t" firstAttribute="centerY" secondItem="uZg-Ng-WCD" secondAttribute="centerY" id="Xcf-p8-eue"/>
                                                         <constraint firstItem="Nxw-Nc-gU4" firstAttribute="trailing" secondItem="8oq-wp-t3Y" secondAttribute="trailing" constant="10" id="Z4m-ON-Kln"/>
                                                         <constraint firstItem="fvi-kN-85t" firstAttribute="centerY" secondItem="lkf-0H-gAV" secondAttribute="centerY" id="ayj-JT-wuW"/>
-                                                        <constraint firstItem="7hE-lS-Wpj" firstAttribute="trailing" secondItem="Nxw-Nc-gU4" secondAttribute="centerX" constant="-160" id="ghu-az-Wu9"/>
+                                                        <constraint firstItem="7hE-lS-Wpj" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nxw-Nc-gU4" secondAttribute="centerX" constant="-160" id="ghu-az-Wu9"/>
                                                         <constraint firstItem="7hE-lS-Wpj" firstAttribute="centerY" secondItem="lkf-0H-gAV" secondAttribute="centerY" id="j8B-9T-6Xs"/>
                                                         <constraint firstItem="7hE-lS-Wpj" firstAttribute="leading" secondItem="lkf-0H-gAV" secondAttribute="leading" constant="17" id="yTU-YY-x9L"/>
                                                     </constraints>
@@ -407,6 +412,7 @@
                                 <connections>
                                     <outlet property="currentPriceIcon" destination="fvi-kN-85t" id="QXF-oi-lby"/>
                                     <outlet property="currentPriceLabel" destination="uZg-Ng-WCD" id="h1G-kY-r2r"/>
+                                    <outlet property="gemInfoView" destination="7hE-lS-Wpj" id="LUn-mj-D0l"/>
                                     <outlet property="gemLevelLabel" destination="Ch3-Ba-ene" id="hhn-TN-8hT"/>
                                     <outlet property="gemQualityLabel" destination="47O-cM-rkW" id="qF8-iB-gEm"/>
                                     <outlet property="itemImageView" destination="yAd-68-bOb" id="z76-Cc-0bX"/>
@@ -436,6 +442,9 @@
         <image name="hammer" catalog="system" width="128" height="115"/>
         <image name="macwindow" catalog="system" width="128" height="93"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <namedColor name="TradeDark">
+            <color red="0.039215686274509803" green="0.039215686274509803" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="TradeTextColor">
             <color red="0.63899999856948853" green="0.55299997329711914" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
