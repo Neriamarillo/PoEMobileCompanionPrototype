@@ -279,9 +279,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="7qH-PU-wWZ">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemSublistTableViewCell" rowHeight="80" id="Nrf-Uh-bin" userLabel="ItemSublistTableViewCell" customClass="ItemSublistTableViewCell" customModule="PoEMobileCompanionPrototype" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Nrf-Uh-bin" id="JvQ-D3-BmJ">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -340,11 +345,11 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="8oq-wp-t3Y" firstAttribute="centerY" secondItem="lkf-0H-gAV" secondAttribute="centerY" id="41o-zQ-LWi"/>
-                                                        <constraint firstItem="uZg-Ng-WCD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nxw-Nc-gU4" secondAttribute="leading" symbolic="YES" id="EOa-Z1-Fyj"/>
+                                                        <constraint firstItem="uZg-Ng-WCD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nxw-Nc-gU4" secondAttribute="centerX" id="EOa-Z1-Fyj"/>
                                                         <constraint firstAttribute="trailing" secondItem="fvi-kN-85t" secondAttribute="trailing" constant="70" id="IWG-jX-5aQ"/>
                                                         <constraint firstItem="uZg-Ng-WCD" firstAttribute="centerY" secondItem="lkf-0H-gAV" secondAttribute="centerY" id="Kvi-eY-dtu"/>
                                                         <constraint firstItem="fvi-kN-85t" firstAttribute="leading" secondItem="uZg-Ng-WCD" secondAttribute="trailing" constant="5" id="LRe-eR-cRd"/>
-                                                        <constraint firstItem="8oq-wp-t3Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fvi-kN-85t" secondAttribute="trailing" symbolic="YES" id="QTE-HC-8fe"/>
+                                                        <constraint firstItem="8oq-wp-t3Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fvi-kN-85t" secondAttribute="trailing" constant="8" symbolic="YES" id="QTE-HC-8fe"/>
                                                         <constraint firstItem="fvi-kN-85t" firstAttribute="top" secondItem="Nxw-Nc-gU4" secondAttribute="top" constant="5" id="Vho-Ym-oP6"/>
                                                         <constraint firstItem="fvi-kN-85t" firstAttribute="centerY" secondItem="uZg-Ng-WCD" secondAttribute="centerY" id="Xcf-p8-eue"/>
                                                         <constraint firstItem="Nxw-Nc-gU4" firstAttribute="trailing" secondItem="8oq-wp-t3Y" secondAttribute="trailing" constant="10" id="Z4m-ON-Kln"/>
@@ -383,12 +388,12 @@
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="RiB-9N-Ckv" id="Zcv-HE-zHy"/>
-                            <outlet property="delegate" destination="RiB-9N-Ckv" id="GbH-1C-rfn"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="nBr-oo-DED"/>
                     <connections>
                         <outlet property="itemSublistTableView" destination="nvO-bw-RT7" id="Hia-AM-22D"/>
+                        <outlet property="searchBar" destination="7qH-PU-wWZ" id="3nU-12-662"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2wK-D1-KNp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

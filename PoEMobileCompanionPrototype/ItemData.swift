@@ -24,6 +24,8 @@ struct Item: Codable {
     let sparkline: ItemSparkLine
     let chaosValue: Double
     let exaltedValue: Double
+    let gemLevel: Int
+    let gemQuality: Int
 }
 
 struct ItemSparkLine: Codable {

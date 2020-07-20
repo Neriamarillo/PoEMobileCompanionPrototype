@@ -28,7 +28,7 @@ struct Currency: Codable {
         case name = "currencyTypeName"
         case receive
         case chaosValue = "chaosEquivalent"
-        case sparkLine = " receiveSparkLine"
+        case sparkLine = "receiveSparkLine"
     }
 }
 
