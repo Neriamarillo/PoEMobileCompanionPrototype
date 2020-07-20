@@ -24,58 +24,39 @@ class ItemSublistViewController : UITableViewController {
     private var filteredItems: [ItemModel] = []
     var searchActive: Bool = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        searchBar.delegate = self
-//        searchActive = false
-//        filteredItems = itemArray
     }
     
     override func viewWillAppear(_ animated: Bool) {
         itemManager.delegate = self
-        
         searchBar.delegate = self
-        searchActive = false
-        
         
         navigationItem.title = selectedItemString
-        
         let backgroundImage = UIImage(named: "harvest-bg" )
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
         searchBar.barTintColor = #colorLiteral(red: 0.07843137255, green: 0.07888896018, blue: 0.0778471455, alpha: 1)
         searchBar.searchTextField.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         loadItems()
         filteredItems = itemArray
     }
     
-    //    //MARK: - TableView Datasource Methods
+    //MARK: - TableView Datasource Methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        return itemListModel.itemTypes.count
-//        return itemArray.count
         return filteredItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemSublistTableViewCell", for: indexPath) as! ItemSublistTableViewCell
-        
-//        let item = itemArray[indexPath.row]
-//        var item: ItemModel
-//        if(searchActive) {
-//            print("FIltered items count at cell init: \(filteredItems.count)")
-//            item = filteredItems[indexPath.row]
-////            print("Filtered Item: \(item.name)")
-//         } else {
-//             item = itemArray[indexPath.row]
-////            print("Not Filtered Item: \(item.name)")
-//         }
-//        print(item.name)
         let item = filteredItems[indexPath.row]
         
         if indexPath.row % 2 == 0 {
@@ -85,7 +66,7 @@ class ItemSublistViewController : UITableViewController {
         }
         
         cell.itemLabel?.text = item.name
-        cell.itemLabel?.textColor = UIColor.white
+        cell.itemLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         
         if item.totalChange > 0 {
             cell.priceChangeLabel?.textColor = UIColor.green
@@ -103,8 +84,19 @@ class ItemSublistViewController : UITableViewController {
         }
         
         cell.currentPriceIcon.image = UIImage(named: "CurrencyIcon")
-        return cell
+        if selectedItem == "SkillGem" {
+//            cell.gemLevelLabel?.isEnabled = true
+//            cell.gemQualityLabel?.isEnabled = true
+            cell.gemLevelLabel?.text = String(item.gemLevel!)
+            cell.gemLevelLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+            cell.gemQualityLabel?.text = String(item.gemQuality!)
+            cell.gemQualityLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+        } else {
+            cell.gemLevelLabel?.isHidden = true
+            cell.gemQualityLabel?.isHidden = true
+        }
         
+        return cell
     }
     
     //MARK: - TableView Delegate Methods
@@ -127,22 +119,15 @@ class ItemSublistViewController : UITableViewController {
     }
 }
 
-
-
 //MARK: - ItemManagerDelegate
 extension ItemSublistViewController: ItemManagerDelegate {
     
     func didFetchItems(_ itemManager: ItemManager, items: [ItemModel]) {
         itemArray = items
         filteredItems = itemArray
-        // Apple recommended?
         OperationQueue.main.addOperation({
             self.tableView.reloadData()
         })
-        // Working
-        //        DispatchQueue.main.async {
-        //            self.tableView.reloadData()
-        //        }
     }
     
     func didFetchCurrency(_ currencyManager: ItemManager, currencies: [ItemModel]) {
@@ -151,9 +136,6 @@ extension ItemSublistViewController: ItemManagerDelegate {
         OperationQueue.main.addOperation({
             self.tableView.reloadData()
         })
-        //                DispatchQueue.main.async {
-        //                    self.tableView.reloadData()
-        //                }
     }
     
     func didFailWithError(error: Error) {
@@ -179,13 +161,11 @@ extension UIImageView {
 //MARK: - Search Bar Methods
 extension ItemSublistViewController: UISearchBarDelegate {
     
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//          searchActive = false
-//          tableView.reloadData()
-//    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        searchActive = true
         let filteredItems = itemArray.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
         self.filteredItems = filteredItems.isEmpty ? itemArray : filteredItems
         print("Filtering: \(itemArray.count) items!")
@@ -193,4 +173,3 @@ extension ItemSublistViewController: UISearchBarDelegate {
     }
     
 }
-

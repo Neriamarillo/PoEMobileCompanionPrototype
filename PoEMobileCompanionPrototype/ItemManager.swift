@@ -74,7 +74,11 @@ struct ItemManager {
                 let value = item.chaosValue
                 let totalChange = item.sparkline.totalChange
                 let icon = item.icon
-                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
+                let exaltValue = item.exaltedValue
+                let gemLevel = item.gemLevel
+                let gemQuality = item.gemQuality
+                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality)
+//                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
                 itemArray.append(parsedItem)
             }
             return itemArray
@@ -95,7 +99,11 @@ struct ItemManager {
                 let value = item.chaosValue
                 let totalChange = item.sparkLine.totalChange
                 let icon = decodedData.details[id - 1].icon
-                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
+                let exaltValue = 0.0
+                let gemLevel = 0
+                let gemQuality = 0
+                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality)
+//                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
                 currencyArray.append(currencyItem)
             }
             return currencyArray

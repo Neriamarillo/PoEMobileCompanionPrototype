@@ -14,9 +14,6 @@ class HomeController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +43,7 @@ class HomeController: UITableViewController {
         }
         
         cell.itemLabel?.text = itemListModel.itemTypeStrings[indexPath.row]
-        cell.itemLabel?.textColor = UIColor.white
+        cell.itemLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         cell.itemImageView?.image = UIImage(named: itemListModel.itemIcons[indexPath.row])
         
         return cell
@@ -70,3 +67,5 @@ class HomeController: UITableViewController {
     }
     
 }
+
+

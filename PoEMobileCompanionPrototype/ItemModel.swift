@@ -13,10 +13,10 @@ struct ItemModel {
     let name: String
     let icon: String?
     let priceInChaos: Double
-    let priceInExalt: Double
+    let priceInExalt: Double?
     let totalChange: Double
-    let gemLevel: Int
-    let gemQuality: Int
+    let gemLevel: Int?
+    let gemQuality: Int?
     
     
     var valueString: String {
