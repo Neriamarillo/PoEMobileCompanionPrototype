@@ -10,20 +10,34 @@ import UIKit
 
 class ItemDetailsViewController: UIViewController {
     
-    var selectedItem : String?
+    @IBOutlet weak var itemImage: UIImageView!
+    
+    var selectedItem: ItemModel!
     
     override func viewDidLoad() {
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = selectedItem
+        navigationItem.title = selectedItem?.name
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .save, target: .none, action: .none),    UIBarButtonItem(barButtonSystemItem: .bookmarks, target: .none, action: .none)]
         
-        guard let navBar = navigationController?.navigationBar else {
-        fatalError("Navigation controller does not exist.")}
+        let backgroundImage = UIImage(named: "harvest-bg")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.image = backgroundImage
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
+        loadViews()
         
-        navBar.prefersLargeTitles = true
     }
     
+    func loadViews() {
+        if let iconUrl = selectedItem.icon {
+            let url = URL(string: iconUrl)
+            itemImage.load(url: url!)
+        }
+    }
     
 }

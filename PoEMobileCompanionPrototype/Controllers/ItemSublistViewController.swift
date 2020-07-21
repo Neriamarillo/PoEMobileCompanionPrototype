@@ -22,7 +22,6 @@ class ItemSublistViewController : UITableViewController {
     var itemManager = ItemManager()
     var itemArray = [ItemModel]()
     private var filteredItems: [ItemModel] = []
-    var searchActive: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,13 +97,13 @@ class ItemSublistViewController : UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        let destinationVC = segue.destination as! ItemDetailsViewController
-    //
-    //        if let indexPath = tableView.indexPathForSelectedRow {
-    //            destinationVC.selectedItem = itemListModel.itemTypes[indexPath.row]
-    //        }
-    //    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ItemDetailsViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedItem = filteredItems[indexPath.row]
+        }
+    }
     
     //MARK: - Model Manipulation Methods
     func loadItems() {
@@ -133,21 +132,6 @@ extension ItemSublistViewController: ItemManagerDelegate {
     
     func didFailWithError(error: Error) {
         print(error)
-    }
-}
-
-//MARK: - Item Image Handler
-extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
     }
 }
 

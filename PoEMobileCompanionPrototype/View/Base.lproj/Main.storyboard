@@ -156,14 +156,23 @@
                     <view key="view" contentMode="scaleToFill" id="nxQ-UZ-jd0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1oz-tY-ZYq">
+                                <rect key="frame" x="20" y="140" width="70" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="e4Z-Y9-vuN"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="ngd-dz-Jfc"/>
+                    <connections>
+                        <outlet property="itemImage" destination="1oz-tY-ZYq" id="YEY-B1-x8L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xil-va-ycf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3603" y="-33"/>
+            <point key="canvasLocation" x="3602.898550724638" y="-33.482142857142854"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -418,6 +427,7 @@
                                     <outlet property="itemImageView" destination="yAd-68-bOb" id="z76-Cc-0bX"/>
                                     <outlet property="itemLabel" destination="BZo-qw-KGV" id="Y3e-rI-crX"/>
                                     <outlet property="priceChangeLabel" destination="8oq-wp-t3Y" id="PlH-oT-5h3"/>
+                                    <segue destination="J5C-ad-ak3" kind="show" identifier="goToItemDetail" id="ABn-hi-gOH"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

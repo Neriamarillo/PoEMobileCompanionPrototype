@@ -18,12 +18,7 @@ struct ItemModel {
     let gemLevel: Int?
     let gemQuality: Int?
     
-    
     var valueString: String {
         return String(format: ".1f", priceInChaos)
     }
-    
-//    var totalChangeString: String {
-//        return String(format: ".2f", totalChange)
-//    }
 }
