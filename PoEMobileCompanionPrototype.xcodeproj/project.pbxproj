@@ -107,6 +107,18 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		1F69E7D324C732CF00991CB9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F69E7B624B6312800991CB9 /* ItemManager.swift */,
+				1F69E7CC24BCEF2800991CB9 /* ItemData.swift */,
+				1F69E7BA24B636F200991CB9 /* CurrencyData.swift */,
+				1F69E7CA24B9239F00991CB9 /* ItemModel.swift */,
+				1F69E7C024B799F600991CB9 /* ItemListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1F98C46224AA8D0B004FD54B = {
 			isa = PBXGroup;
 			children = (
@@ -129,15 +141,11 @@
 				1F98C46E24AA8D0B004FD54B /* AppDelegate.swift */,
 				1F98C47024AA8D0B004FD54B /* SceneDelegate.swift */,
 				1F69E7AE24AD413E00991CB9 /* View */,
+				1F69E7AD24AD412D00991CB9 /* Controllers */,
 				1F98C47924AA8D0E004FD54B /* Assets.xcassets */,
 				1F98C47B24AA8D0E004FD54B /* LaunchScreen.storyboard */,
 				1F98C47E24AA8D0E004FD54B /* Info.plist */,
-				1F69E7AD24AD412D00991CB9 /* Controllers */,
-				1F69E7B624B6312800991CB9 /* ItemManager.swift */,
-				1F69E7CC24BCEF2800991CB9 /* ItemData.swift */,
-				1F69E7BA24B636F200991CB9 /* CurrencyData.swift */,
-				1F69E7CA24B9239F00991CB9 /* ItemModel.swift */,
-				1F69E7C024B799F600991CB9 /* ItemListModel.swift */,
+				1F69E7D324C732CF00991CB9 /* Model */,
 				1F69E7D224C7307500991CB9 /* Utils */,
 				1F69E7B524B50A4500991CB9 /* Swift Files */,
 			);
