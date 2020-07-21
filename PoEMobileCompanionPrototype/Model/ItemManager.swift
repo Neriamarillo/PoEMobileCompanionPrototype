@@ -15,14 +15,11 @@ protocol ItemManagerDelegate {
     func didFailWithError(error: Error)
 }
 
-
 struct ItemManager {
     let apiURL = "https://poe.ninja/api/data/"
     let leagueName = "Harvest"
     
-    
     var delegate: ItemManagerDelegate?
-    
     
     mutating func fetchItems(itemType: String)  {
         var itemTypeOverview: String
@@ -77,8 +74,8 @@ struct ItemManager {
                 let exaltValue = item.exaltedValue
                 let gemLevel = item.gemLevel
                 let gemQuality = item.gemQuality
-                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality)
-//                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
+                let flavourText = item.flavourText
+                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText)
                 itemArray.append(parsedItem)
             }
             return itemArray
@@ -102,8 +99,8 @@ struct ItemManager {
                 let exaltValue = 0.0
                 let gemLevel = 0
                 let gemQuality = 0
-                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality)
-//                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, totalChange: totalChange)
+                let flavourText = ""
+                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText)
                 currencyArray.append(currencyItem)
             }
             return currencyArray
@@ -112,5 +109,5 @@ struct ItemManager {
             return nil
         }
     }
-
+    
 }

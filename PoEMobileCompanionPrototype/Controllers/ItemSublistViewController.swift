@@ -25,24 +25,23 @@ class ItemSublistViewController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         itemManager.delegate = self
-        searchBar.delegate = self
-        
+
         navigationItem.title = selectedItemString
+        navigationItem.largeTitleDisplayMode = .always
         let backgroundImage = UIImage(named: "harvest-bg" )
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
         searchBar.searchTextField.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.searchTextField.leftView?.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+        searchBar.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)])
-        navigationItem.hidesSearchBarWhenScrolling = false
-        
         loadItems()
-        filteredItems = itemArray
     }
     
     //MARK: - TableView Datasource Methods
@@ -108,6 +107,7 @@ class ItemSublistViewController : UITableViewController {
     //MARK: - Model Manipulation Methods
     func loadItems() {
         itemManager.fetchItems(itemType: selectedItem!)
+        self.filteredItems = itemArray
     }
 }
 
@@ -142,11 +142,22 @@ extension ItemSublistViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.searchTextField.text = nil
+        self.filteredItems = itemArray
+        self.tableView.reloadData()
+        searchBar.resignFirstResponder()
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let filteredItems = itemArray.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
-        self.filteredItems = filteredItems.isEmpty ? itemArray : filteredItems
-        print("Filtering: \(itemArray.count) items!")
-        tableView.reloadData()
+        self.filteredItems = searchText.isEmpty ? itemArray : filteredItems
+        self.tableView.reloadData()
     }
     
 }

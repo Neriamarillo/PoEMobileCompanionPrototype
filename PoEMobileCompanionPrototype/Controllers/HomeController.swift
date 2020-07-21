@@ -17,8 +17,8 @@ class HomeController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         navigationController?.navigationBar.barStyle = .black
+        navigationItem.largeTitleDisplayMode = .always
         let backgroundImage = UIImage(named: "harvest-bg" )
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill

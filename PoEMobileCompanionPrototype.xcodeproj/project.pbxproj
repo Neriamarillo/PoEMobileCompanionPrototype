@@ -142,12 +142,12 @@
 				1F98C47024AA8D0B004FD54B /* SceneDelegate.swift */,
 				1F69E7AE24AD413E00991CB9 /* View */,
 				1F69E7AD24AD412D00991CB9 /* Controllers */,
-				1F98C47924AA8D0E004FD54B /* Assets.xcassets */,
-				1F98C47B24AA8D0E004FD54B /* LaunchScreen.storyboard */,
-				1F98C47E24AA8D0E004FD54B /* Info.plist */,
 				1F69E7D324C732CF00991CB9 /* Model */,
 				1F69E7D224C7307500991CB9 /* Utils */,
 				1F69E7B524B50A4500991CB9 /* Swift Files */,
+				1F98C47924AA8D0E004FD54B /* Assets.xcassets */,
+				1F98C47B24AA8D0E004FD54B /* LaunchScreen.storyboard */,
+				1F98C47E24AA8D0E004FD54B /* Info.plist */,
 			);
 			path = PoEMobileCompanionPrototype;
 			sourceTree = "<group>";

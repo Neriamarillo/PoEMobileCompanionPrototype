@@ -26,6 +26,7 @@ struct Item: Codable {
     let exaltedValue: Double
     let gemLevel: Int
     let gemQuality: Int
+    let flavourText: String?
 }
 
 struct ItemSparkLine: Codable {
