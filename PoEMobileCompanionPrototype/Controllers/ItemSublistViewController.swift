@@ -7,7 +7,6 @@
 //
 
 //MARK: - TODO'S
-// Set data to completely load from server on app start to minimize delays. Also check persistent storage options.
 
 import UIKit
 
@@ -22,26 +21,37 @@ class ItemSublistViewController : UITableViewController {
     var itemManager = ItemManager()
     var itemArray = [ItemModel]()
     private var filteredItems: [ItemModel] = []
+    var searchActive = Bool()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         itemManager.delegate = self
-
-        navigationItem.title = selectedItemString
-        navigationItem.largeTitleDisplayMode = .always
+        
+        setupNavBar()
+        setupSearchBar()
         let backgroundImage = UIImage(named: "harvest-bg" )
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
+        loadItems()
+    }
+    
+    func setupNavBar() {
+        navigationItem.title = selectedItemString
+    }
+    
+    func setupSearchBar() {
+        searchBar.delegate = self
         searchBar.searchTextField.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.searchTextField.leftView?.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
-        searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)])
-        loadItems()
+        searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search items", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)])
+        self.tableView.tableHeaderView = self.searchBar
+        
     }
     
     //MARK: - TableView Datasource Methods
@@ -92,9 +102,10 @@ class ItemSublistViewController : UITableViewController {
     
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        performSegue(withIdentifier: "goToItems", sender: self)
+//                performSegue(withIdentifier: "goToItemDetail", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ItemDetailsViewController
@@ -102,12 +113,12 @@ class ItemSublistViewController : UITableViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedItem = filteredItems[indexPath.row]
         }
+        
     }
     
     //MARK: - Model Manipulation Methods
     func loadItems() {
         itemManager.fetchItems(itemType: selectedItem!)
-        self.filteredItems = itemArray
     }
 }
 
@@ -116,7 +127,9 @@ extension ItemSublistViewController: ItemManagerDelegate {
     
     func didFetchItems(_ itemManager: ItemManager, items: [ItemModel]) {
         itemArray = items
-        filteredItems = itemArray
+        if searchActive == false {
+            filteredItems = itemArray
+        }
         OperationQueue.main.addOperation({
             self.tableView.reloadData()
         })
@@ -124,7 +137,9 @@ extension ItemSublistViewController: ItemManagerDelegate {
     
     func didFetchCurrency(_ currencyManager: ItemManager, currencies: [ItemModel]) {
         itemArray = currencies
-        filteredItems = itemArray
+        if searchActive == false {
+            filteredItems = itemArray
+        }
         OperationQueue.main.addOperation({
             self.tableView.reloadData()
         })
@@ -135,29 +150,39 @@ extension ItemSublistViewController: ItemManagerDelegate {
     }
 }
 
-//MARK: - Search Bar Methods
+// MARK: - Search Bar Methods
 extension ItemSublistViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        self.searchBar.resignFirstResponder()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
+        searchActive = true
+        self.searchBar.setShowsCancelButton(true, animated: true)
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: true)
-        searchBar.searchTextField.text = nil
-        self.filteredItems = itemArray
-        self.tableView.reloadData()
-        searchBar.resignFirstResponder()
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.searchBar.setShowsCancelButton(false, animated: true)
+        self.searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let filteredItems = itemArray.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
-        self.filteredItems = searchText.isEmpty ? itemArray : filteredItems
+        if searchActive {
+            let filteredItem = itemArray.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
+            filteredItems = searchText.isEmpty ? itemArray : filteredItem
+        } else {
+            self.searchBar.text = ""
+            filteredItems = itemArray
+        }
         self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.setShowsCancelButton(false, animated: true)
+        searchActive = false
+        self.searchBar(self.searchBar, textDidChange: "")
+        self.searchBar.resignFirstResponder()
     }
     
 }
