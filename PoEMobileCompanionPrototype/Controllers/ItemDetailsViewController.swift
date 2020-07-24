@@ -17,10 +17,12 @@ class ItemDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavBar()
+        adjustLargeTitleSize()
         let backgroundImage = UIImage(named: "harvest-bg")
         let imageView = UIImageView(frame: view.bounds)
         imageView.image = backgroundImage
@@ -47,4 +49,24 @@ class ItemDetailsViewController: UIViewController {
             flavourTextLabel.isHidden = true
         }
     }
+}
+
+//MARK: - Dynamically Adjust Large Title
+extension UIViewController {
+  func adjustLargeTitleSize() {
+    guard let title = self.navigationItem.title, #available(iOS 11.0, *) else { return }
+
+    let maxWidth = UIScreen.main.bounds.size.width - 60
+    var fontSize = UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
+    var width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
+
+    while width > maxWidth {
+      fontSize -= 1
+        width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
+    }
+
+    navigationController?.navigationBar.largeTitleTextAttributes =
+        [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize), NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+    ]
+  }
 }

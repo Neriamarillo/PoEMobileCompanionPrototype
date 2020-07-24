@@ -51,7 +51,6 @@ class ItemSublistViewController : UITableViewController {
         searchBar.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search items", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)])
         self.tableView.tableHeaderView = self.searchBar
-        
     }
     
     //MARK: - TableView Datasource Methods
