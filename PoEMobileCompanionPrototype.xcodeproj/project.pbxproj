@@ -21,7 +21,7 @@
 		1F69E7D124C7305E00991CB9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F69E7D024C7305D00991CB9 /* Utils.swift */; };
 		1F98C46F24AA8D0B004FD54B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C46E24AA8D0B004FD54B /* AppDelegate.swift */; };
 		1F98C47124AA8D0B004FD54B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C47024AA8D0B004FD54B /* SceneDelegate.swift */; };
-		1F98C47324AA8D0B004FD54B /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C47224AA8D0B004FD54B /* CurrencyViewController.swift */; };
+		1F98C47324AA8D0B004FD54B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C47224AA8D0B004FD54B /* WikiViewController.swift */; };
 		1F98C47524AA8D0B004FD54B /* BuildsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C47424AA8D0B004FD54B /* BuildsViewController.swift */; };
 		1F98C47824AA8D0B004FD54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F98C47624AA8D0B004FD54B /* Main.storyboard */; };
 		1F98C47A24AA8D0E004FD54B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F98C47924AA8D0E004FD54B /* Assets.xcassets */; };
@@ -46,7 +46,7 @@
 		1F98C46B24AA8D0B004FD54B /* PoEMobileCompanionPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoEMobileCompanionPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F98C46E24AA8D0B004FD54B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F98C47024AA8D0B004FD54B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1F98C47224AA8D0B004FD54B /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
+		1F98C47224AA8D0B004FD54B /* WikiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
 		1F98C47424AA8D0B004FD54B /* BuildsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildsViewController.swift; sourceTree = "<group>"; };
 		1F98C47724AA8D0B004FD54B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F98C47924AA8D0E004FD54B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,13 +70,13 @@
 		1F69E7AD24AD412D00991CB9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F98C47224AA8D0B004FD54B /* CurrencyViewController.swift */,
 				1F98C47424AA8D0B004FD54B /* BuildsViewController.swift */,
 				1F98C48624AB9C0F004FD54B /* TradeViewController.swift */,
 				1F98C48824ABB251004FD54B /* ForumViewController.swift */,
 				1F69E7B124B4F37000991CB9 /* HomeController.swift */,
 				1F69E7C424B90CC700991CB9 /* ItemSublistViewController.swift */,
 				1F69E7C224B8FAAA00991CB9 /* ItemDetailsViewController.swift */,
+				1F98C47224AA8D0B004FD54B /* WikiViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 				1F98C47524AA8D0B004FD54B /* BuildsViewController.swift in Sources */,
 				1F69E7BD24B646EF00991CB9 /* Constants.swift in Sources */,
 				1F69E7B724B6312800991CB9 /* ItemManager.swift in Sources */,
-				1F98C47324AA8D0B004FD54B /* CurrencyViewController.swift in Sources */,
+				1F98C47324AA8D0B004FD54B /* WikiViewController.swift in Sources */,
 				1F69E7B224B4F37000991CB9 /* HomeController.swift in Sources */,
 				1F98C48924ABB251004FD54B /* ForumViewController.swift in Sources */,
 				1F69E7C124B799F600991CB9 /* ItemListModel.swift in Sources */,

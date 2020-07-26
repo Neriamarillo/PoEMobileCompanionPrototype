@@ -18,6 +18,7 @@ struct ItemModel {
     let gemLevel: Int?
     let gemQuality: Int?
     let flavourText: String?
+    let itemType: String
     
     var valueString: String {
         return String(format: ".1f", priceInChaos)

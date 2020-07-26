@@ -18,12 +18,14 @@ protocol ItemManagerDelegate {
 struct ItemManager {
     let apiURL = "https://poe.ninja/api/data/"
     let leagueName = "Harvest"
+    var itemType: String!
     
     var delegate: ItemManagerDelegate?
     
     mutating func fetchItems(itemType: String)  {
         var itemTypeOverview: String
-        if (itemType == "Currency" || itemType == "Fragment") {
+        self.itemType = itemType
+        if (self.itemType == "Currency" || self.itemType == "Fragment") {
             itemTypeOverview = "currencyoverview"
         } else {
             itemTypeOverview = "itemoverview"
@@ -75,7 +77,7 @@ struct ItemManager {
                 let gemLevel = item.gemLevel
                 let gemQuality = item.gemQuality
                 let flavourText = item.flavourText
-                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText)
+                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType)
                 itemArray.append(parsedItem)
             }
             return itemArray
@@ -100,7 +102,7 @@ struct ItemManager {
                 let gemLevel = 0
                 let gemQuality = 0
                 let flavourText = ""
-                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText)
+                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType)
                 currencyArray.append(currencyItem)
             }
             return currencyArray

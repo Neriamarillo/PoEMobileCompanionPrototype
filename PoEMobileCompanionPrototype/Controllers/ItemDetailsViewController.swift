@@ -12,8 +12,10 @@ class ItemDetailsViewController: UIViewController {
     
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var flavourTextLabel: UILabel!
+    @IBOutlet weak var wikiButton: UIButton!
     
     var selectedItem: ItemModel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,25 +50,40 @@ class ItemDetailsViewController: UIViewController {
         } else {
             flavourTextLabel.isHidden = true
         }
+        
+//        wikiButton.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
     }
+    
+    //MARK: - Go to Item Wiki Page
+    @IBAction func wikiButtonPressed(_ sender: UIButton) {
+        print(selectedItem!)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! WikiViewController
+        destinationVC.searchItem = selectedItem.name
+        destinationVC.searchItemType = selectedItem.itemType
+        
+    }
+    
 }
 
-//MARK: - Dynamically Adjust Large Title
-extension UIViewController {
-  func adjustLargeTitleSize() {
-    guard let title = self.navigationItem.title, #available(iOS 11.0, *) else { return }
-
-    let maxWidth = UIScreen.main.bounds.size.width - 60
-    var fontSize = UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
-    var width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
-
-    while width > maxWidth {
-      fontSize -= 1
-        width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
-    }
-
-    navigationController?.navigationBar.largeTitleTextAttributes =
-        [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize), NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
-    ]
-  }
-}
+////MARK: - Dynamically Adjust Large Title
+//extension UIViewController {
+//    func adjustLargeTitleSize() {
+//        guard let title = self.navigationItem.title, #available(iOS 11.0, *) else { return }
+//        
+//        let maxWidth = UIScreen.main.bounds.size.width - 60
+//        var fontSize = UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
+//        var width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
+//        
+//        while width > maxWidth {
+//            fontSize -= 1
+//            width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
+//        }
+//        
+//        navigationController?.navigationBar.largeTitleTextAttributes =
+//            [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize), NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+//        ]
+//    }
+//}
