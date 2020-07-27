@@ -13,6 +13,10 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var flavourTextLabel: UILabel!
     @IBOutlet weak var wikiButton: UIButton!
+    @IBOutlet weak var priceInChaosLabel: UILabel!
+    @IBOutlet weak var chaosPriceImage: UIImageView!
+    
+    @IBOutlet weak var graphView: UIView!
     
     var selectedItem: ItemModel!
     
@@ -50,6 +54,12 @@ class ItemDetailsViewController: UIViewController {
         } else {
             flavourTextLabel.isHidden = true
         }
+        priceInChaosLabel.text = "\(selectedItem.priceInChaos)x"
+        chaosPriceImage.image = UIImage(named: "CurrencyIcon")
+//        if let exaltPrice = selectedItem.priceInExalt {
+//           priceInExalt.text = String(exaltPrice)
+//        }
+        
         
 //        wikiButton.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
     }
