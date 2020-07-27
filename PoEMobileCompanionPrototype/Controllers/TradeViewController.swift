@@ -38,4 +38,3 @@ class TradeViewController: UIViewController, WKUIDelegate {
     }
 
 }
-

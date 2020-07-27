@@ -66,9 +66,10 @@
                                     <constraint firstItem="K0X-UB-hZv" firstAttribute="leading" secondItem="YC3-eJ-SNI" secondAttribute="leading" constant="20" id="wD0-Fw-gZ3"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rFx-EE-AHh">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rFx-EE-AHh">
                                 <rect key="frame" x="0.0" y="138" width="414" height="626"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <viewLayoutGuide key="safeArea" id="pNh-Qx-Qjv"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

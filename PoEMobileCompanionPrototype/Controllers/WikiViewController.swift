@@ -7,7 +7,6 @@
 //
 
 //MARK: - TODO
-// Look into dislaying elements of the WebView (back, fwd, reader, etc).
 // Look into using the search term for the Beasts and the Helmet Enchants in their respective overview page
 
 import UIKit
@@ -35,11 +34,11 @@ class WikiViewController: UIViewController, WKNavigationDelegate {
     }
     
     func setupView() {
-        
+        adjustLargeTitleSize()
         webView.navigationDelegate = self
+        webViewContainer.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.allowsBackForwardNavigationGestures = true
-        webViewContainer.addSubview(webView)
         
         NSLayoutConstraint.activate([
             webView.widthAnchor.constraint(equalTo: webViewContainer.widthAnchor),
@@ -68,6 +67,15 @@ class WikiViewController: UIViewController, WKNavigationDelegate {
         
         let myUrl = URL(string: "https://pathofexile.gamepedia.com/\(itemToSearch)")!
         return myUrl
+    }
+    
+    //MARK: - WebView Navigation Methods
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        if self.webView.backForwardList.backItem != nil {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        }
     }
     
     @IBAction func goBack() {
