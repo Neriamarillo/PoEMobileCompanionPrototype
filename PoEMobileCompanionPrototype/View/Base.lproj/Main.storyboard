@@ -216,7 +216,7 @@
                                 <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ePI-xN-Mvt">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="729"/>
+                                        <rect key="frame" x="0.0" y="8" width="414" height="729"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="058-S2-kxT" userLabel="Item Description">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
@@ -250,7 +250,7 @@
                                                 <rect key="frame" x="0.0" y="101" width="414" height="223"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RiU-M8-TNO">
-                                                        <rect key="frame" x="8" y="8" width="109" height="52"/>
+                                                        <rect key="frame" x="8" y="8" width="66" height="52"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                         <state key="normal" title="Wiki" image="book" catalog="system">
                                                             <color key="titleColor" name="TradeTextColor"/>
@@ -279,12 +279,12 @@
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="RiU-M8-TNO" firstAttribute="leading" secondItem="DvB-ph-t49" secondAttribute="leading" constant="8" id="0sU-Tj-3yK"/>
                                                     <constraint firstItem="TQs-aQ-tey" firstAttribute="centerY" secondItem="kdk-HD-Jut" secondAttribute="centerY" id="1OX-fb-bUz"/>
                                                     <constraint firstItem="RiU-M8-TNO" firstAttribute="top" secondItem="DvB-ph-t49" secondAttribute="top" constant="8" id="7Tw-Ti-BNc"/>
                                                     <constraint firstItem="DvB-ph-t49" firstAttribute="bottom" secondItem="TQs-aQ-tey" secondAttribute="bottom" constant="163" id="9tm-WH-h5o"/>
                                                     <constraint firstItem="RiU-M8-TNO" firstAttribute="leading" secondItem="M7w-0o-AkO" secondAttribute="leadingMargin" id="KrO-mS-0LT"/>
                                                     <constraint firstItem="kdk-HD-Jut" firstAttribute="leading" secondItem="TQs-aQ-tey" secondAttribute="trailing" constant="8" id="L2t-BF-QFf"/>
-                                                    <constraint firstItem="TQs-aQ-tey" firstAttribute="leading" relation="lessThanOrEqual" secondItem="RiU-M8-TNO" secondAttribute="trailing" constant="171" id="WSz-fn-KJs"/>
                                                     <constraint firstAttribute="trailing" secondItem="TQs-aQ-tey" secondAttribute="trailing" constant="56" id="ck7-BJ-G4D"/>
                                                     <constraint firstItem="DvB-ph-t49" firstAttribute="bottom" secondItem="RiU-M8-TNO" secondAttribute="bottom" constant="163" id="i2I-ud-ap2"/>
                                                     <constraint firstItem="TQs-aQ-tey" firstAttribute="top" secondItem="DvB-ph-t49" secondAttribute="top" constant="8" id="nuQ-OH-Br4"/>
@@ -306,7 +306,7 @@
                                 <constraints>
                                     <constraint firstItem="ePI-xN-Mvt" firstAttribute="leading" secondItem="D61-4e-GQe" secondAttribute="leading" id="6Ym-l0-eDo"/>
                                     <constraint firstItem="ePI-xN-Mvt" firstAttribute="bottom" secondItem="D61-4e-GQe" secondAttribute="bottom" id="J92-a1-btO"/>
-                                    <constraint firstItem="ePI-xN-Mvt" firstAttribute="top" secondItem="D61-4e-GQe" secondAttribute="top" id="JrQ-5l-8xY"/>
+                                    <constraint firstItem="ePI-xN-Mvt" firstAttribute="top" secondItem="D61-4e-GQe" secondAttribute="top" constant="8" id="JrQ-5l-8xY"/>
                                     <constraint firstItem="ePI-xN-Mvt" firstAttribute="trailing" secondItem="D61-4e-GQe" secondAttribute="trailing" id="if2-r8-jNB"/>
                                     <constraint firstItem="ePI-xN-Mvt" firstAttribute="width" secondItem="XBm-Gh-fGY" secondAttribute="width" id="rAD-lI-9dK"/>
                                 </constraints>
