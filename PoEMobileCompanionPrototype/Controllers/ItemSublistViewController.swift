@@ -15,6 +15,7 @@ class ItemSublistViewController : UITableViewController {
     @IBOutlet var itemSublistTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    
     var selectedItem : String?
     var selectedItemString : String?
     var itemType: String?
@@ -95,6 +96,10 @@ class ItemSublistViewController : UITableViewController {
             cell.gemLevelLabel?.isHidden = true
             cell.gemQualityLabel?.isHidden = true
         }
+        if let itemHasInfluence = item.influence, itemHasInfluence != "" {
+            cell.influenceImageView.image = UIImage(named: "\(itemHasInfluence)Symbol")
+        }
+        
         
         return cell
     }

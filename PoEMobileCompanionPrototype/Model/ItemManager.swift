@@ -77,7 +77,9 @@ struct ItemManager {
                 let gemLevel = item.gemLevel
                 let gemQuality = item.gemQuality
                 let flavourText = item.flavourText
-                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType)
+                let itemLevel = item.levelRequired
+                let influence = item.variant
+                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
                 itemArray.append(parsedItem)
             }
             return itemArray
@@ -102,7 +104,9 @@ struct ItemManager {
                 let gemLevel = 0
                 let gemQuality = 0
                 let flavourText = ""
-                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType)
+                let itemLevel = 0
+                let influence = ""
+                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
                 currencyArray.append(currencyItem)
             }
             return currencyArray

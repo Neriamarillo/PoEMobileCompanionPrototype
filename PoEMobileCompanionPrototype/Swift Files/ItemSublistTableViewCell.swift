@@ -18,6 +18,7 @@ class ItemSublistTableViewCell: UITableViewCell {
     @IBOutlet weak var gemLevelLabel: UILabel!
     @IBOutlet weak var gemQualityLabel: UILabel!
     @IBOutlet weak var gemInfoView: UIStackView!
+    @IBOutlet weak var influenceImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
