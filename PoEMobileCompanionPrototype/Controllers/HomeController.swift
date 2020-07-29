@@ -18,9 +18,10 @@ class HomeController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.barStyle = .black
-        navigationController?.isToolbarHidden = true
-        let backgroundImage = UIImage(named: "harvest-bg" )
+//        tabBarController?.tabBar.barStyle = .black
+        let backgroundImage = UIImage(named: "harvest-bg")
         let imageView = UIImageView(image: backgroundImage)
+//        imageView.alpha = 0.8
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
     }
@@ -37,9 +38,9 @@ class HomeController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = #colorLiteral(red: 0.1764497757, green: 0.1764855981, blue: 0.1764421761, alpha: 1).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.07800000161, green: 0.07800000161, blue: 0.07800000161, alpha: 0.8).withAlphaComponent(0.8)
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.06291490793, green: 0.06269240379, blue: 0.06683042645, alpha: 1).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.0390000008, green: 0.0390000008, blue: 0.0390000008, alpha: 0.8).withAlphaComponent(0.8)
         }
         
         cell.itemLabel?.text = itemListModel.itemTypeStrings[indexPath.row]
@@ -47,7 +48,6 @@ class HomeController: UITableViewController {
         cell.itemImageView?.image = UIImage(named: itemListModel.itemIcons[indexPath.row])
         
         return cell
-        
     }
     
     //MARK: - TableView Delegate Methods
@@ -67,5 +67,3 @@ class HomeController: UITableViewController {
     }
     
 }
-
-

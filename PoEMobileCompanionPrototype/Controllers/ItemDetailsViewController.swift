@@ -32,9 +32,12 @@ class ItemDetailsViewController: UIViewController {
         let backgroundImage = UIImage(named: "harvest-bg")
         let imageView = UIImageView(frame: view.bounds)
         imageView.image = backgroundImage
+//        imageView.alpha = 0.5
         imageView.contentMode = .scaleAspectFill
+        self.view.layer.allowsGroupOpacity = true
         view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
+        
         loadViews()
     }
     
@@ -48,7 +51,7 @@ class ItemDetailsViewController: UIViewController {
             let url = URL(string: iconUrl)
             itemImage.load(url: url!)
         }
-        if let flavourText = selectedItem.flavourText, flavourText != "" {
+        if let flavourText = selectedItem.flavourTextString, flavourText != "" {
             flavourTextLabel.text = "\(flavourText)"
             flavourTextLabel.sizeToFit()
         } else {
@@ -60,8 +63,6 @@ class ItemDetailsViewController: UIViewController {
 //           priceInExalt.text = String(exaltPrice)
 //        }
         
-        
-//        wikiButton.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
     }
     
     //MARK: - Go to Item Wiki Page
@@ -77,23 +78,3 @@ class ItemDetailsViewController: UIViewController {
     }
     
 }
-
-////MARK: - Dynamically Adjust Large Title
-//extension UIViewController {
-//    func adjustLargeTitleSize() {
-//        guard let title = self.navigationItem.title, #available(iOS 11.0, *) else { return }
-//        
-//        let maxWidth = UIScreen.main.bounds.size.width - 60
-//        var fontSize = UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
-//        var width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
-//        
-//        while width > maxWidth {
-//            fontSize -= 1
-//            width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]).width
-//        }
-//        
-//        navigationController?.navigationBar.largeTitleTextAttributes =
-//            [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize), NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
-//        ]
-//    }
-//}

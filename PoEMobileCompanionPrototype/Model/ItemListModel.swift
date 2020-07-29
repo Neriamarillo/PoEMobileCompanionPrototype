@@ -24,5 +24,4 @@ struct ItemListModel {
                                      "Incubators", "Scarabs", "Fossils", "Resonators", "Essences", "Divination Cards",
                                      "Prophecies", "Skill Gems", "Base Types", "Helmet Enchants", "Unique Maps", "Maps", "Unique Jewels",
                                      "Unique Flasks", "Unique Weapons", "Unique Armours", "Unique Accessories", "Beasts", "Vials"]
-    
 }

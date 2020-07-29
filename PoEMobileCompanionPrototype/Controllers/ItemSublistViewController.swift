@@ -15,7 +15,6 @@ class ItemSublistViewController : UITableViewController {
     @IBOutlet var itemSublistTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    
     var selectedItem : String?
     var selectedItemString : String?
     var itemType: String?
@@ -36,6 +35,7 @@ class ItemSublistViewController : UITableViewController {
         setupSearchBar()
         let backgroundImage = UIImage(named: "harvest-bg" )
         let imageView = UIImageView(image: backgroundImage)
+        //        imageView.alpha = 0.8
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
         loadItems()
@@ -50,6 +50,7 @@ class ItemSublistViewController : UITableViewController {
         searchBar.searchTextField.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.searchTextField.leftView?.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+        searchBar.backgroundColor = #colorLiteral(red: 0.05881328136, green: 0.05883090943, blue: 0.05880954117, alpha: 1)
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search items", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)])
         self.tableView.tableHeaderView = self.searchBar
     }
@@ -69,19 +70,26 @@ class ItemSublistViewController : UITableViewController {
         let item = filteredItems[indexPath.row]
         
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = #colorLiteral(red: 0.1764497757, green: 0.1764855981, blue: 0.1764421761, alpha: 1).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.07800000161, green: 0.07800000161, blue: 0.07800000161, alpha: 0.8).withAlphaComponent(0.8)
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.06291490793, green: 0.06269240379, blue: 0.06683042645, alpha: 1).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.0390000008, green: 0.0390000008, blue: 0.0390000008, alpha: 0.8).withAlphaComponent(0.8)
         }
         cell.itemLabel?.text = item.name
-        if item.totalChange > 0 {
-            cell.priceChangeLabel?.textColor = UIColor.green
-        } else if item.totalChange < 0 {
-            cell.priceChangeLabel?.textColor = UIColor.red
-        } else {
-            cell.priceChangeLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+        
+        switch true {
+            case 0 ~= item.totalChange:
+                cell.priceChangeLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
+                cell.priceChangeLabel?.text = "\(item.totalChangeString)%"
+            case item.totalChange > 0:
+                cell.priceChangeLabel?.text = "+\(item.totalChangeString)%"
+                cell.priceChangeLabel?.textColor = UIColor.green
+            case item.totalChange < 0:
+                cell.priceChangeLabel?.text = "\(item.totalChangeString)%"
+                cell.priceChangeLabel?.textColor = UIColor.red
+            default:
+                fatalError()
         }
-        cell.priceChangeLabel?.text = "\(item.totalChange)%"
+        
         cell.currentPriceLabel?.text = "\(item.priceInChaos)x"
         
         if let iconUrl = item.icon {
@@ -89,13 +97,18 @@ class ItemSublistViewController : UITableViewController {
             cell.itemImageView.load(url: url!)
         }
         cell.currentPriceIcon.image = UIImage(named: "CurrencyIcon")
+        
         if selectedItem == "SkillGem" {
             cell.gemLevelLabel?.text = "Level: \(item.gemLevel!)"
             cell.gemQualityLabel?.text = "Quality: \(item.gemQuality!)"
+        } else if let itemHasItemLevel = item.itemLevel, itemHasItemLevel != 0 {
+            cell.gemLevelLabel.text = "Item Level: \(itemHasItemLevel)"
+            cell.gemQualityLabel.isHidden = true
         } else {
             cell.gemLevelLabel?.isHidden = true
             cell.gemQualityLabel?.isHidden = true
         }
+        
         if let itemHasInfluence = item.influence, itemHasInfluence != "" {
             cell.influenceImageView.image = UIImage(named: "\(itemHasInfluence)Symbol")
         }
@@ -106,7 +119,7 @@ class ItemSublistViewController : UITableViewController {
     
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//                performSegue(withIdentifier: "goToItemDetail", sender: self)
+        //                performSegue(withIdentifier: "goToItemDetail", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)
         

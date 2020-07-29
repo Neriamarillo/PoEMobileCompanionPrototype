@@ -44,6 +44,10 @@ class WikiViewController: UIViewController, WKNavigationDelegate {
             webView.widthAnchor.constraint(equalTo: webViewContainer.widthAnchor),
             webView.heightAnchor.constraint(equalTo: webViewContainer.heightAnchor)
         ])
+        navigationItem.title = "Official PoE Wiki"
+//        tabBarController?.hidesBottomBarWhenPushed = true
+//        navigationController?.setToolbarHidden(true, animated: false)
+//        navigationController?.hidesBottomBarWhenPushed = true
     }
     
     func sendRequest() {
@@ -73,8 +77,10 @@ class WikiViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         if self.webView.backForwardList.backItem != nil {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            tabBarController?.tabBar.isHidden = true
         } else {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            tabBarController?.tabBar.isHidden = false
         }
     }
     

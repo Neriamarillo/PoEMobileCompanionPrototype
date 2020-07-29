@@ -25,4 +25,12 @@ struct ItemModel {
     var valueString: String {
         return String(format: ".1f", priceInChaos)
     }
+    
+    var totalChangeString: String {
+        return String(totalChange).replacingOccurrences(of: "+", with: "")
+    }
+    
+    var flavourTextString: String? {
+        return (flavourText?.replacingOccurrences(of: "\n", with: " "))
+    }
 }
