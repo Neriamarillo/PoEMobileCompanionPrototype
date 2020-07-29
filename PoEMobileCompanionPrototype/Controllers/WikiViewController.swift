@@ -12,12 +12,12 @@
 import UIKit
 import WebKit
 
-class WikiViewController: UIViewController, WKNavigationDelegate {
+class WikiViewController: UIViewController, WKNavigationDelegate, UIToolbarDelegate {
     
     @IBOutlet weak var webViewContainer: UIView!
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var forwardButton: UIButton!
-    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var toolbarBackButton: UIBarButtonItem!
+    @IBOutlet weak var toolbarForwardButton: UIBarButtonItem!
+    @IBOutlet weak var toolbarRefreshButton: UIBarButtonItem!
     
     var webView = WKWebView()
     
@@ -26,11 +26,18 @@ class WikiViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.isToolbarHidden = false
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         
         setupView()
         sendRequest()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = true
+        tabBarController?.tabBar.isHidden = false
     }
     
     func setupView() {
@@ -45,9 +52,13 @@ class WikiViewController: UIViewController, WKNavigationDelegate {
             webView.heightAnchor.constraint(equalTo: webViewContainer.heightAnchor)
         ])
         navigationItem.title = "Official PoE Wiki"
-//        tabBarController?.hidesBottomBarWhenPushed = true
-//        navigationController?.setToolbarHidden(true, animated: false)
-//        navigationController?.hidesBottomBarWhenPushed = true
+        setupToolbar()
+    }
+    
+    func setupToolbar() {
+        toolbarBackButton.action = #selector(webView.goBack)
+        toolbarForwardButton.action = #selector(webView.goForward)
+        toolbarRefreshButton.action = #selector(webView.reload)
     }
     
     func sendRequest() {
@@ -77,23 +88,9 @@ class WikiViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         if self.webView.backForwardList.backItem != nil {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-            tabBarController?.tabBar.isHidden = true
         } else {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-            tabBarController?.tabBar.isHidden = false
         }
-    }
-    
-    @IBAction func goBack() {
-        webView.goBack()
-    }
-    
-    @IBAction func goForward() {
-        webView.goForward()
-    }
-    
-    @IBAction func reload() {
-        webView.reload()
     }
     
 }
