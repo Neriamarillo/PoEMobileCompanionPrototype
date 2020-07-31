@@ -11,19 +11,29 @@ import UIKit
 class HomeController: UITableViewController {
     
     var itemListModel = ItemListModel()
+    var leagueManager = LeagueManager()
+    var leagueNames = [String]()
+    var selectedLeague: String!
+    var defaultLeague = "Standard"
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        leagueManager.delegate = self
+        
         navigationController?.navigationBar.barStyle = .black
-//        tabBarController?.tabBar.barStyle = .black
+        if selectedLeague == nil {
+            self.selectedLeague = defaultLeague
+        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: self.selectedLeague, style: .plain, target: self, action: #selector(presentPopover))
         let backgroundImage = UIImage(named: "harvest-bg")
         let imageView = UIImageView(image: backgroundImage)
-//        imageView.alpha = 0.8
+        //        imageView.alpha = 0.8
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
+        loadLeagues()
     }
     
     //MARK: - TableView Datasource Methods
@@ -50,12 +60,46 @@ class HomeController: UITableViewController {
         return cell
     }
     
-    //MARK: - TableView Delegate Methods
-        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//            performSegue(withIdentifier: "goToItemSubList", sender: self)
+    //MARK: - League Selection
+    func loadLeagues() {
+        leagueManager.fetchLeagues()
+    }
     
-            tableView.deselectRow(at: indexPath, animated: true)
+    @IBAction func selectLeague(_ sender: Any) {
+        presentPopover()
+    }
+    
+    @objc func presentPopover() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        for league in self.leagueNames {
+            if !league.contains("SSF") {
+                alertController.addAction(UIAlertAction(title: league, style: .default, handler: { (action: UIAlertAction!) in
+                    self.selectedLeague = league
+                    self.navigationItem.rightBarButtonItem?.title = self.selectedLeague
+                }))
+            }
         }
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = self.navigationItem.rightBarButtonItem
+            popoverController.sourceView = self.view
+            popoverController.permittedArrowDirections = .up
+        }
+        self.present(alertController, animated: true, completion: {
+            alertController.view.superview?.isUserInteractionEnabled = true
+            alertController.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissTap(sender:))))
+        })
+    }
+    
+    @objc func dismissTap(sender: UITapGestureRecognizer) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK: - TableView Delegate Methods
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ItemSublistViewController
@@ -63,7 +107,19 @@ class HomeController: UITableViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedItem = itemListModel.itemTypes[indexPath.row]
             destinationVC.selectedItemString = itemListModel.itemTypeStrings[indexPath.row]
+            destinationVC.selectedLeague = self.selectedLeague
+            print("Selected Item: \(itemListModel.itemTypes[indexPath.row]), Selected League: \(self.selectedLeague!)")
         }
     }
+}
+
+//MARK: - LeagueManagerDelegate
+extension HomeController : LeagueManagerDelegate {
+    func didFetchLeagues(_ leagueManager: LeagueManager, leagues: [String]) {
+        leagueNames = leagues
+    }
     
+    func didFailWithError(error: Error) {
+        print("Error: \(error)")
+    }
 }

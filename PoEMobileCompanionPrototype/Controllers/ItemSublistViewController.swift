@@ -6,8 +6,6 @@
 //  Copyright © 2020 Jorge Nieves. All rights reserved.
 //
 
-//MARK: - TODO'S
-
 import UIKit
 
 class ItemSublistViewController : UITableViewController {
@@ -18,6 +16,7 @@ class ItemSublistViewController : UITableViewController {
     var selectedItem : String?
     var selectedItemString : String?
     var itemType: String?
+    var selectedLeague: String!
     var itemManager = ItemManager()
     var itemArray = [ItemModel]()
     private var filteredItems: [ItemModel] = []
@@ -26,6 +25,7 @@ class ItemSublistViewController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Sublist league: \(selectedLeague!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,16 +113,13 @@ class ItemSublistViewController : UITableViewController {
             cell.influenceImageView.image = UIImage(named: "\(itemHasInfluence)Symbol")
         }
         
-        
         return cell
     }
     
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //                performSegue(withIdentifier: "goToItemDetail", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ItemDetailsViewController
@@ -130,12 +127,11 @@ class ItemSublistViewController : UITableViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedItem = filteredItems[indexPath.row]
         }
-        
     }
     
     //MARK: - Model Manipulation Methods
     func loadItems() {
-        itemManager.fetchItems(itemType: selectedItem!)
+        itemManager.fetchItems(itemType: selectedItem!, leagueName: self.selectedLeague)
     }
 }
 

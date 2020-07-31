@@ -9,7 +9,6 @@
 import Foundation
 
 protocol ItemManagerDelegate {
-    
     func didFetchCurrency(_ currencyManager: ItemManager, currencies: [ItemModel])
     func didFetchItems(_ itemManager: ItemManager, items: [ItemModel])
     func didFailWithError(error: Error)
@@ -17,12 +16,10 @@ protocol ItemManagerDelegate {
 
 struct ItemManager {
     let apiURL = "https://poe.ninja/api/data/"
-    let leagueName = "Harvest"
     var itemType: String!
-    
     var delegate: ItemManagerDelegate?
     
-    mutating func fetchItems(itemType: String)  {
+    mutating func fetchItems(itemType: String, leagueName: String)  {
         var itemTypeOverview: String
         self.itemType = itemType
         if (self.itemType == "Currency" || self.itemType == "Fragment") {
@@ -30,15 +27,14 @@ struct ItemManager {
         } else {
             itemTypeOverview = "itemoverview"
         }
-        print("ItemOverview: \(itemTypeOverview)) and ItemType: \(itemType)")
-        
-        let urlString = "\(apiURL)\(itemTypeOverview)?league=\(leagueName)&type=\(itemType)" // gets the list of currencies
-        //        let urlString = "\(apiURL)currencyhistory?league=\(leagueName)&type=\(itemType)&currencyId=2" // gets graph data for currency
-        performRequest(with: urlString, itemTypeOverview: itemTypeOverview)
+        let originalUrl = "\(apiURL)\(itemTypeOverview)?league=\(leagueName)&type=\(itemType)"
+        let urlString = originalUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        performRequest(with: urlString!, itemTypeOverview: itemTypeOverview)
     }
     
     func performRequest(with urlString: String, itemTypeOverview: String ) {
         if let url = URL(string: urlString) {
+            print("URL: \(url)")
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
@@ -67,20 +63,22 @@ struct ItemManager {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(ItemData.self, from: itemData)
-            for item in decodedData.info {
-                let id = item.id
-                let name = item.name
-                let value = item.chaosValue
-                let totalChange = item.sparkline.totalChange
-                let icon = item.icon
-                let exaltValue = item.exaltedValue
-                let gemLevel = item.gemLevel
-                let gemQuality = item.gemQuality
-                let flavourText = item.flavourText
-                let itemLevel = item.levelRequired
-                let influence = item.variant
-                let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
-                itemArray.append(parsedItem)
+            if !decodedData.info!.isEmpty {
+                for item in decodedData.info! {
+                    let id = item.id
+                    let name = item.name
+                    let value = item.chaosValue
+                    let totalChange = item.sparkline.totalChange
+                    let icon = item.icon
+                    let exaltValue = item.exaltedValue
+                    let gemLevel = item.gemLevel
+                    let gemQuality = item.gemQuality
+                    let flavourText = item.flavourText
+                    let itemLevel = item.levelRequired
+                    let influence = item.variant
+                    let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
+                    itemArray.append(parsedItem)
+                }
             }
             return itemArray
         } catch {
@@ -94,20 +92,28 @@ struct ItemManager {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-            for item in decodedData.info {
-                let id = item.receive.id
-                let name = item.name
-                let value = item.chaosValue
-                let totalChange = item.sparkLine.totalChange
-                let icon = decodedData.details[id - 1].icon
-                let exaltValue = 0.0
-                let gemLevel = 0
-                let gemQuality = 0
-                let flavourText = ""
-                let itemLevel = 0
-                let influence = ""
-                let currencyItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
-                currencyArray.append(currencyItem)
+            if !(decodedData.info!.isEmpty) {
+                for item in decodedData.info! {
+                    var id: Int?
+                    if let idCheck = item.pay?.payId {
+                        id = idCheck
+                    } else {
+                        id = item.receive?.buyId
+                    }
+                    print("Item id: \(id!)")
+                    let name = item.name
+                    let value = item.chaosValue
+                    let totalChange = item.sparkLine.totalChange
+                    let icon = decodedData.details[id! - 1].icon
+                    let exaltValue = 0.0
+                    let gemLevel = 0
+                    let gemQuality = 0
+                    let flavourText = ""
+                    let itemLevel = 0
+                    let influence = ""
+                    let currencyItem = ItemModel(id: id!, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
+                    currencyArray.append(currencyItem)
+                }
             }
             return currencyArray
         } catch {
@@ -115,5 +121,4 @@ struct ItemManager {
             return nil
         }
     }
-    
 }

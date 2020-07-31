@@ -9,7 +9,7 @@
 import Foundation
 
 struct CurrencyData: Codable {
-    let info: [Currency]
+    let info: [Currency]?
     let details: [CurrencyDetails]
     
     enum CodingKeys: String, CodingKey {
@@ -20,12 +20,14 @@ struct CurrencyData: Codable {
 
 struct Currency: Codable {
     let name: String
-    let receive: Buy
+    let pay: Buy?
+    let receive: Buy?
     let chaosValue: Double
     let sparkLine: CurrencySparkLine
     
     enum CodingKeys: String, CodingKey {
         case name = "currencyTypeName"
+        case pay
         case receive
         case chaosValue = "chaosEquivalent"
         case sparkLine = "receiveSparkLine"
@@ -33,11 +35,13 @@ struct Currency: Codable {
 }
 
 struct Buy: Codable {
-    let id: Int
+    let payId: Int?
+    let buyId: Int?
     let leagueId: Int
     
     enum CodingKeys: String, CodingKey {
-        case id = "get_currency_id"
+        case payId = "pay_currency_id"
+        case buyId = "get_currency_id"
         case leagueId = "league_id"
     }
 }

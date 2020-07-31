@@ -74,7 +74,6 @@ class ItemDetailsViewController: UIViewController {
         let destinationVC = segue.destination as! WikiViewController
         destinationVC.searchItem = selectedItem.name
         destinationVC.searchItemType = selectedItem.itemType
-        
     }
     
 }

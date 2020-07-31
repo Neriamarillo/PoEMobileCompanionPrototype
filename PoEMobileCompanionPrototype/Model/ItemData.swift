@@ -9,7 +9,7 @@
 import Foundation
 
 struct ItemData: Codable {
-    let info: [Item]
+    let info: [Item]?
     
     enum CodingKeys: String, CodingKey {
         case info = "lines"
