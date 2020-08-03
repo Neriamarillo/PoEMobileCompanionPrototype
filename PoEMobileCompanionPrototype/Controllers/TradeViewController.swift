@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class TradeViewController: UIViewController, WKUIDelegate {
+class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     var webView: WKWebView!
     var leagueName: String = "Harvest"
@@ -23,20 +23,30 @@ class TradeViewController: UIViewController, WKUIDelegate {
         webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = true
         webView.allowsBackForwardNavigationGestures = true
-        webView.sizeToFit()
+        //        webView.sizeToFit()
         webView.uiDelegate = self
+        webView.navigationDelegate = self
+        webView.contentMode = .scaleAspectFill
         view = webView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tradeManager.delegate = self
-        tradeManager.createUrl(wantItem: "chaos", haveItem: "exalted", status: "online")
-//tradeManager.createUrl(wantItem: "Awakened Chain Support", haveItem: "", status: "online")
+        tradeManager.createUrl(wantItem: "mirror", haveItem: "exalted", status: "online")
+        //tradeManager.createUrl(wantItem: "Awakened Chain Support", haveItem: "", status: "online")
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         toolbarItems = [refresh]
         navigationController?.isToolbarHidden = false
+    }
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        var scriptContent = "var meta = document.createElement('meta');"
+        scriptContent += "meta.name='viewport';"
+        scriptContent += "meta.content='width=device-width';"
+        scriptContent += "document.getElementsByTagName('head')[0].appendChild(meta);"
+        self.webView.evaluateJavaScript(scriptContent, completionHandler: nil)
     }
     
 }

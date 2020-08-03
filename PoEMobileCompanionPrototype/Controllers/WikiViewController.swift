@@ -85,6 +85,12 @@ class WikiViewController: UIViewController, WKNavigationDelegate, UIToolbarDeleg
     
     //MARK: - WebView Navigation Methods
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        var scriptContent = "var meta = document.createElement('meta');"
+        scriptContent += "meta.name='viewport';"
+        scriptContent += "meta.content='width=device-width';"
+        scriptContent += "document.getElementsByTagName('head')[0].appendChild(meta);"
+        self.webView.evaluateJavaScript(scriptContent, completionHandler: nil)
+        
         if self.webView.backForwardList.backItem != nil {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         } else {
