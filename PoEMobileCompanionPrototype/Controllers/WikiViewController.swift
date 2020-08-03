@@ -30,7 +30,6 @@ class WikiViewController: UIViewController, WKNavigationDelegate, UIToolbarDeleg
         navigationController?.isToolbarHidden = false
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        
         setupView()
         sendRequest()
     }

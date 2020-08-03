@@ -10,31 +10,46 @@ import UIKit
 import WebKit
 
 class TradeViewController: UIViewController, WKUIDelegate {
-
+    
     var webView: WKWebView!
     var leagueName: String = "Harvest"
+    var searchUrl: URL!
+    var tradeManager = TradeManager()
+    
+    //TODO: Add variables to be passed from the ItemDetails to here for the search items. Will use placeholder items in the createUrl method until that is implemented.
     
     override func loadView() {
         
         webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = true
         webView.allowsBackForwardNavigationGestures = true
+        webView.sizeToFit()
         webView.uiDelegate = self
         view = webView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let myUrl = URL(string: "https://www.pathofexile.com/trade/search/\(leagueName)")!
-        webView.load(URLRequest(url: myUrl))
+        tradeManager.delegate = self
+        tradeManager.createUrl(wantItem: "chaos", haveItem: "exalted", status: "online")
+//tradeManager.createUrl(wantItem: "Awakened Chain Support", haveItem: "", status: "online")
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         toolbarItems = [refresh]
         navigationController?.isToolbarHidden = false
     }
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        title = "Trade"
+}
+//MARK: - Trade Manager Delegate
+extension TradeViewController: TradeManagerDelegate {
+    func didFetchTradeSearch(_ tradeManager: TradeManager, tradeUrl: URL) {
+        self.searchUrl = tradeUrl
+        DispatchQueue.main.async {
+            self.webView.load(URLRequest(url: self.searchUrl!))
+        }
     }
-
+    
+    func didFailWithError(error: Error) {
+        print(error)
+    }
 }

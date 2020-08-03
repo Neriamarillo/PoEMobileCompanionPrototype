@@ -27,7 +27,7 @@ class HomeController: UITableViewController {
         if selectedLeague == nil {
             self.selectedLeague = defaultLeague
         }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: self.selectedLeague, style: .plain, target: self, action: #selector(presentPopover))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "League: \(self.selectedLeague!)", style: .plain, target: self, action: #selector(presentPopover))
         let backgroundImage = UIImage(named: "harvest-bg")
         let imageView = UIImageView(image: backgroundImage)
         //        imageView.alpha = 0.8
@@ -65,17 +65,13 @@ class HomeController: UITableViewController {
         leagueManager.fetchLeagues()
     }
     
-    @IBAction func selectLeague(_ sender: Any) {
-        presentPopover()
-    }
-    
     @objc func presentPopover() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         for league in self.leagueNames {
             if !league.contains("SSF") {
                 alertController.addAction(UIAlertAction(title: league, style: .default, handler: { (action: UIAlertAction!) in
                     self.selectedLeague = league
-                    self.navigationItem.rightBarButtonItem?.title = self.selectedLeague
+                    self.navigationItem.rightBarButtonItem?.title = "League: \(self.selectedLeague!)"
                 }))
             }
         }

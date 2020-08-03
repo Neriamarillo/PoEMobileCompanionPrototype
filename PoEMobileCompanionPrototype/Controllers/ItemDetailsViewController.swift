@@ -23,7 +23,6 @@ class ItemDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +36,6 @@ class ItemDetailsViewController: UIViewController {
         self.view.layer.allowsGroupOpacity = true
         view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
-        
         loadViews()
     }
     
@@ -62,7 +60,6 @@ class ItemDetailsViewController: UIViewController {
 //        if let exaltPrice = selectedItem.priceInExalt {
 //           priceInExalt.text = String(exaltPrice)
 //        }
-        
     }
     
     //MARK: - Go to Item Wiki Page
@@ -75,5 +72,4 @@ class ItemDetailsViewController: UIViewController {
         destinationVC.searchItem = selectedItem.name
         destinationVC.searchItemType = selectedItem.itemType
     }
-    
 }
