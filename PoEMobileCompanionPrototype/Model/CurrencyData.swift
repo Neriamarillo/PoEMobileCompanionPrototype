@@ -55,4 +55,5 @@ struct CurrencyDetails: Codable {
     let id: Float
     let icon: String
     let name: String
+    let tradeId: String?
 }

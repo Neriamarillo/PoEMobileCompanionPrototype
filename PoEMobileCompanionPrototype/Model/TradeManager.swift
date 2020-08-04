@@ -18,10 +18,11 @@ class TradeManager {
     let searchId = String()
     var delegate: TradeManagerDelegate?
     var searchType = String()
+    var league = "Standard"
     
     func createUrl(wantItem: String, haveItem: String, status: String) {
-        print("Want: \(wantItem), Have: \(haveItem), Status: \(status)")
-        
+        league = UserDefaults.standard.string(forKey: "CurrentLeague")!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        print("Want: \(wantItem), Have: \(haveItem), Status: \(status), Current League: \(self.league)")
         var parameters = String()
         if (haveItem != "") {
             parameters = """
@@ -36,8 +37,9 @@ class TradeManager {
         }
         
         let postData = parameters.data(using: .utf8)
+        print(league)
         
-        var request = URLRequest(url: URL(string: "https://www.pathofexile.com/api/trade/\(searchType)/Harvest")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "https://www.pathofexile.com/api/trade/\(searchType)/\(league)")!, timeoutInterval: Double.infinity)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
@@ -74,6 +76,6 @@ class TradeManager {
     }
     
     func prepareUrl(searchId: String) -> URL {
-        return URL(string: "https://www.pathofexile.com/trade/\(self.searchType)/Harvest/\(searchId)")!
+        return URL(string: "https://www.pathofexile.com/trade/\(self.searchType)/\(self.league)/\(searchId)")!
     }
 }

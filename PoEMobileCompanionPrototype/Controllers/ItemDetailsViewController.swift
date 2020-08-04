@@ -19,6 +19,7 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var graphView: UIView!
     
     var selectedItem: ItemModel!
+    var itemLists: ItemListModel!
     
     
     override func viewDidLoad() {
@@ -31,7 +32,7 @@ class ItemDetailsViewController: UIViewController {
         let backgroundImage = UIImage(named: "harvest-bg")
         let imageView = UIImageView(frame: view.bounds)
         imageView.image = backgroundImage
-//        imageView.alpha = 0.5
+        //        imageView.alpha = 0.5
         imageView.contentMode = .scaleAspectFill
         self.view.layer.allowsGroupOpacity = true
         view.addSubview(imageView)
@@ -57,19 +58,29 @@ class ItemDetailsViewController: UIViewController {
         }
         priceInChaosLabel.text = "\(selectedItem.priceInChaos)x"
         chaosPriceImage.image = UIImage(named: "CurrencyIcon")
-//        if let exaltPrice = selectedItem.priceInExalt {
-//           priceInExalt.text = String(exaltPrice)
-//        }
+        //        if let exaltPrice = selectedItem.priceInExalt {
+        //           priceInExalt.text = String(exaltPrice)
+        //        }
     }
     
-    //MARK: - Go to Item Wiki Page
+    //MARK: - Segues
     @IBAction func wikiButtonPressed(_ sender: UIButton) {
         print(selectedItem!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! WikiViewController
-        destinationVC.searchItem = selectedItem.name
-        destinationVC.searchItemType = selectedItem.itemType
+        switch segue.identifier {
+            case "goToWiki":
+                let wikiDestination = segue.destination as! WikiViewController
+                wikiDestination.searchItem = selectedItem.name
+                wikiDestination.searchItemType = selectedItem.itemType
+            case "goToTradeFromDetails":
+                let tradeDestination = segue.destination as! TradeViewController
+                tradeDestination.wantItem = selectedItem.tradeId!.lowercased()
+                tradeDestination.haveItem = "exalt"
+            default:
+                return
+        }
     }
+    
 }

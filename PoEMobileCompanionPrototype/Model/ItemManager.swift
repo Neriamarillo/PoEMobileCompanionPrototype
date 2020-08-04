@@ -76,7 +76,9 @@ struct ItemManager {
                     let flavourText = item.flavourText
                     let itemLevel = item.levelRequired
                     let influence = item.variant
-                    let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
+                    let tradeId = ""
+                    
+                    let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence, tradeId: tradeId)
                     itemArray.append(parsedItem)
                 }
             }
@@ -101,17 +103,22 @@ struct ItemManager {
                         id = item.receive?.buyId
                     }
                     print("Item id: \(id!)")
+                    let itemDetails = decodedData.details[id! - 1]
                     let name = item.name
                     let value = item.chaosValue
                     let totalChange = item.sparkLine.totalChange
-                    let icon = decodedData.details[id! - 1].icon
+                    let icon = itemDetails.icon
                     let exaltValue = 0.0
                     let gemLevel = 0
                     let gemQuality = 0
                     let flavourText = ""
                     let itemLevel = 0
                     let influence = ""
-                    let currencyItem = ItemModel(id: id!, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence)
+                    var tradeId: String!
+                    if let tradeIdCheck = itemDetails.tradeId {
+                        tradeId = tradeIdCheck
+                    }
+                    let currencyItem = ItemModel(id: id!, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence, tradeId: tradeId)
                     currencyArray.append(currencyItem)
                 }
             }

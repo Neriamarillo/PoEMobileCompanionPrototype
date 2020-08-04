@@ -15,33 +15,32 @@ class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     var leagueName: String = "Harvest"
     var searchUrl: URL!
     var tradeManager = TradeManager()
-    
-    //TODO: Add variables to be passed from the ItemDetails to here for the search items. Will use placeholder items in the createUrl method until that is implemented.
+    var wantItem = String()
+    var haveItem = String()
     
     override func loadView() {
         
         webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = true
         webView.allowsBackForwardNavigationGestures = true
-        //        webView.sizeToFit()
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        webView.contentMode = .scaleAspectFill
         view = webView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tradeManager.delegate = self
-        tradeManager.createUrl(wantItem: "mirror", haveItem: "exalted", status: "online")
-        //tradeManager.createUrl(wantItem: "Awakened Chain Support", haveItem: "", status: "online")
+        print("Want item: \(wantItem), Have item: \(haveItem)")
+        tradeManager.createUrl(wantItem: wantItem, haveItem: haveItem, status: "online")
+        /*TODO: Implement the creation of url for items now that it is working for currency type searches. */
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         toolbarItems = [refresh]
         navigationController?.isToolbarHidden = false
     }
     
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         var scriptContent = "var meta = document.createElement('meta');"
         scriptContent += "meta.name='viewport';"
         scriptContent += "meta.content='width=device-width';"

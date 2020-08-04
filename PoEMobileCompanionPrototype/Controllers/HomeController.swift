@@ -14,7 +14,7 @@ class HomeController: UITableViewController {
     var leagueManager = LeagueManager()
     var leagueNames = [String]()
     var selectedLeague: String!
-    var defaultLeague = "Standard"
+    var defaultLeague = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,7 @@ class HomeController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         leagueManager.delegate = self
+        setLeague()
         
         navigationController?.navigationBar.barStyle = .black
         if selectedLeague == nil {
@@ -61,6 +62,15 @@ class HomeController: UITableViewController {
     }
     
     //MARK: - League Selection
+    func setLeague() {
+        if let league = UserDefaults.standard.string(forKey: "CurrentLeague") {
+            defaultLeague = league
+        } else {
+            defaultLeague = "Standard"
+            UserDefaults.standard.set(defaultLeague, forKey: "CurrentLeague")
+        }
+    }
+    
     func loadLeagues() {
         leagueManager.fetchLeagues()
     }
@@ -72,6 +82,7 @@ class HomeController: UITableViewController {
                 alertController.addAction(UIAlertAction(title: league, style: .default, handler: { (action: UIAlertAction!) in
                     self.selectedLeague = league
                     self.navigationItem.rightBarButtonItem?.title = "League: \(self.selectedLeague!)"
+                    UserDefaults.standard.set(league, forKey: "CurrentLeague")
                 }))
             }
         }

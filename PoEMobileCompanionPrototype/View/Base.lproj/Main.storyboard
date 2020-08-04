@@ -48,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4407.2463768115949" y="-516.29464285714289"/>
+            <point key="canvasLocation" x="4309" y="-675"/>
         </scene>
         <!--Builds-->
         <scene sceneID="wg7-f3-ORb">
@@ -76,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1558" y="-750"/>
+            <point key="canvasLocation" x="-2778" y="678"/>
         </scene>
         <!--Items-->
         <scene sceneID="P3H-gw-3wV">
@@ -168,6 +168,9 @@
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ePI-xN-Mvt">
                                         <rect key="frame" x="0.0" y="20" width="414" height="653"/>
+                                        <userGuides>
+                                            <userLayoutGuide location="141" affinity="minY"/>
+                                        </userGuides>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="058-S2-kxT" userLabel="Item Description">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
@@ -209,7 +212,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="wikiButtonPressed:" destination="J5C-ad-ak3" eventType="touchUpInside" id="CDA-NQ-2Jy"/>
-                                                            <segue destination="9pv-A4-QxB" kind="show" id="rzG-fh-6vl"/>
+                                                            <segue destination="9pv-A4-QxB" kind="show" identifier="goToWiki" id="rzG-fh-6vl"/>
                                                         </connections>
                                                     </button>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kdk-HD-Jut" userLabel="Current Price Chaos Icon">
@@ -228,6 +231,14 @@
                                                         <color key="textColor" name="TradeTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ek0-ew-V7C">
+                                                        <rect key="frame" x="20" y="48" width="91" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Trade Search"/>
+                                                        <connections>
+                                                            <segue destination="G0h-r9-UIV" kind="show" identifier="goToTradeFromDetails" id="2kh-Dh-6qU"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="TQs-aQ-tey" firstAttribute="centerY" secondItem="kdk-HD-Jut" secondAttribute="centerY" id="1OX-fb-bUz"/>
@@ -335,7 +346,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSE-hT-CWA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2468.1159420289855" y="733.92857142857144"/>
+            <point key="canvasLocation" x="-3636" y="678"/>
         </scene>
         <!--Trade-->
         <scene sceneID="mYQ-fq-cuN">
@@ -363,7 +374,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="szO-ve-gqC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1655.072463768116" y="733.92857142857144"/>
+            <point key="canvasLocation" x="2088" y="872"/>
         </scene>
         <!--Home-->
         <scene sceneID="1lW-kU-ujm">
@@ -619,9 +630,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D5p-9b-xSH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="744.92753623188412" y="733.92857142857144"/>
+            <point key="canvasLocation" x="1220" y="872"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="2kh-Dh-6qU"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.2.squarepath" catalog="system" width="128" height="89"/>
         <image name="book" catalog="system" width="128" height="101"/>

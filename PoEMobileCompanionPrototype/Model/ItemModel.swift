@@ -21,6 +21,7 @@ struct ItemModel {
     let itemType: String
     let itemLevel: Int?
     let influence: String?
+    let tradeId: String?
     
     var valueString: String {
         return String(format: ".1f", priceInChaos)
