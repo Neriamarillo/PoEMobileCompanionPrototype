@@ -12,14 +12,12 @@ import WebKit
 class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     var webView: WKWebView!
-    var leagueName: String = "Harvest"
     var searchUrl: URL!
     var tradeManager = TradeManager()
     var wantItem = String()
     var haveItem = String()
     
     override func loadView() {
-        
         webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = true
         webView.allowsBackForwardNavigationGestures = true
@@ -31,15 +29,18 @@ class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         tradeManager.delegate = self
+        
         print("Want item: \(wantItem), Have item: \(haveItem)")
         tradeManager.createUrl(wantItem: wantItem, haveItem: haveItem, status: "online")
-        /*TODO: Implement the creation of url for items now that it is working for currency type searches. */
+        
+        /* TODO: Implement the creation of url for items now that it is working for currency type searches */
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         toolbarItems = [refresh]
         navigationController?.isToolbarHidden = false
     }
     
+    // Setting webview content to correct device screen width
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         var scriptContent = "var meta = document.createElement('meta');"
         scriptContent += "meta.name='viewport';"

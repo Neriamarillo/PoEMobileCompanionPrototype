@@ -10,7 +10,6 @@ import UIKit
 
 class HomeController: UITableViewController {
     
-    var itemListModel = ItemListModel()
     var leagueManager = LeagueManager()
     var leagueNames = [String]()
     var selectedLeague: String!
@@ -28,7 +27,8 @@ class HomeController: UITableViewController {
         if selectedLeague == nil {
             self.selectedLeague = defaultLeague
         }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "League: \(self.selectedLeague!)", style: .plain, target: self, action: #selector(presentPopover))
+        navigationItem.rightBarButtonItem =
+            UIBarButtonItem(title: "League: \(self.selectedLeague!)", style: .plain, target: self, action: #selector(presentPopover))
         let backgroundImage = UIImage(named: "harvest-bg")
         let imageView = UIImageView(image: backgroundImage)
         //        imageView.alpha = 0.8
@@ -42,7 +42,7 @@ class HomeController: UITableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemListModel.itemTypeStrings.count
+        return ItemListModel.itemTypeStrings.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,9 +54,9 @@ class HomeController: UITableViewController {
             cell.backgroundColor = #colorLiteral(red: 0.0390000008, green: 0.0390000008, blue: 0.0390000008, alpha: 0.8).withAlphaComponent(0.8)
         }
         
-        cell.itemLabel?.text = itemListModel.itemTypeStrings[indexPath.row]
+        cell.itemLabel?.text = ItemListModel.itemTypeStrings[indexPath.row]
         cell.itemLabel?.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
-        cell.itemImageView?.image = UIImage(named: itemListModel.itemIcons[indexPath.row])
+        cell.itemImageView?.image = UIImage(named: ItemListModel.itemIcons[indexPath.row])
         
         return cell
     }
@@ -112,15 +112,15 @@ class HomeController: UITableViewController {
         let destinationVC = segue.destination as! ItemSublistViewController
         
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedItem = itemListModel.itemTypes[indexPath.row]
-            destinationVC.selectedItemString = itemListModel.itemTypeStrings[indexPath.row]
+            destinationVC.selectedItem = ItemListModel.itemTypes[indexPath.row]
+            destinationVC.selectedItemString = ItemListModel.itemTypeStrings[indexPath.row]
             destinationVC.selectedLeague = self.selectedLeague
-            print("Selected Item: \(itemListModel.itemTypes[indexPath.row]), Selected League: \(self.selectedLeague!)")
+            print("Selected Item: \(ItemListModel.itemTypes[indexPath.row]), Selected League: \(self.selectedLeague!)")
         }
     }
 }
 
-//MARK: - LeagueManagerDelegate
+//MARK: - League Manager Delegate
 extension HomeController : LeagueManagerDelegate {
     func didFetchLeagues(_ leagueManager: LeagueManager, leagues: [String]) {
         leagueNames = leagues

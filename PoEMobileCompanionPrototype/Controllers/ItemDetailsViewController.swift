@@ -15,34 +15,36 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var wikiButton: UIButton!
     @IBOutlet weak var priceInChaosLabel: UILabel!
     @IBOutlet weak var chaosPriceImage: UIImageView!
-    
+
     @IBOutlet weak var graphView: UIView!
     
     var selectedItem: ItemModel!
     var itemLists: ItemListModel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
+        adjustLargeTitleSize()
+        setupBackground()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setupNavBar()
-        adjustLargeTitleSize()
-        let backgroundImage = UIImage(named: "harvest-bg")
-        let imageView = UIImageView(frame: view.bounds)
-        imageView.image = backgroundImage
-        //        imageView.alpha = 0.5
-        imageView.contentMode = .scaleAspectFill
-        self.view.layer.allowsGroupOpacity = true
-        view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
         loadViews()
     }
     
     func setupNavBar() {
         navigationItem.title = selectedItem.name
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .save, target: .none, action: .none)]
+    }
+    
+    func setupBackground() {
+        let backgroundImage = UIImage(named: "harvest-bg")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.image = backgroundImage
+        imageView.contentMode = .scaleAspectFill
+        self.view.layer.allowsGroupOpacity = true
+        view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
     }
     
     func loadViews() {

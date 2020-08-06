@@ -9,8 +9,8 @@
 import Foundation
 
 protocol ItemManagerDelegate {
-    func didFetchCurrency(_ currencyManager: ItemManager, currencies: [ItemModel])
-    func didFetchItems(_ itemManager: ItemManager, items: [ItemModel])
+    func didFetchCurrency(currencies: [ItemModel])
+    func didFetchItems(items: [ItemModel])
     func didFailWithError(error: Error)
 }
 
@@ -45,11 +45,11 @@ struct ItemManager {
                     switch itemTypeOverview {
                         case "itemoverview":
                             if let items = self.parseItemJSON(safeData) {
-                                self.delegate?.didFetchItems(self, items: items)
+                                self.delegate?.didFetchItems(items: items)
                         }
                         default:
                             if let currencies = self.parseCurrencyJSON(safeData) {
-                                self.delegate?.didFetchCurrency(self, currencies: currencies)
+                                self.delegate?.didFetchCurrency(currencies: currencies)
                         }
                     }
                 }

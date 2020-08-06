@@ -6,13 +6,13 @@
 //  Copyright © 2020 Jorge Nieves. All rights reserved.
 //
 
-//MARK: - TODO
-// Look into using the search term for the Beasts and the Helmet Enchants in their respective overview page
+
+/* TODO: Look into using the search term for the Beasts and the Helmet Enchants in their respective overview page */
 
 import UIKit
 import WebKit
 
-class WikiViewController: UIViewController, WKNavigationDelegate, UIToolbarDelegate {
+class WikiViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var webViewContainer: UIView!
     @IBOutlet weak var toolbarBackButton: UIBarButtonItem!
@@ -26,10 +26,7 @@ class WikiViewController: UIViewController, WKNavigationDelegate, UIToolbarDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.tabBar.isHidden = true
-        navigationController?.isToolbarHidden = false
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.navigationDelegate = self
         setupView()
         sendRequest()
     }
@@ -40,8 +37,8 @@ class WikiViewController: UIViewController, WKNavigationDelegate, UIToolbarDeleg
     }
     
     func setupView() {
-        adjustLargeTitleSize()
-        webView.navigationDelegate = self
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webViewContainer.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.allowsBackForwardNavigationGestures = true
@@ -51,6 +48,9 @@ class WikiViewController: UIViewController, WKNavigationDelegate, UIToolbarDeleg
             webView.heightAnchor.constraint(equalTo: webViewContainer.heightAnchor)
         ])
         navigationItem.title = "Official PoE Wiki"
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.isToolbarHidden = false
+        adjustLargeTitleSize()
         setupToolbar()
     }
     

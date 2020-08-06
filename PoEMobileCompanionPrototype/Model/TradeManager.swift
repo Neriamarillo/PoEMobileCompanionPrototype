@@ -18,7 +18,7 @@ class TradeManager {
     let searchId = String()
     var delegate: TradeManagerDelegate?
     var searchType = String()
-    var league = "Standard"
+    var league = String()
     
     func createUrl(wantItem: String, haveItem: String, status: String) {
         league = UserDefaults.standard.string(forKey: "CurrentLeague")!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -45,16 +45,17 @@ class TradeManager {
         request.httpMethod = "POST"
         request.httpBody = postData
         
-        performRequest(with: request)
+        performPostRequest(with: request)
     }
-    func performRequest(with requestUrl: URLRequest) {
+    
+    func performPostRequest(with requestUrl: URLRequest) {
         
         let task = URLSession.shared.dataTask(with: requestUrl) { data, response, error in
             guard let safeData = data else {
                 print("Error at request: \(error!)")
                 return
             }
-            if let tradeId = self.parseGetResponse(safeData) {
+            if let tradeId = self.parsePostResponse(safeData) {
                 let tradeUrl = self.prepareUrl(searchId: tradeId)
                 print("Trade url at safeData: \(tradeUrl)")
                 self.delegate?.didFetchTradeSearch(self, tradeUrl: tradeUrl)
@@ -63,7 +64,7 @@ class TradeManager {
         task.resume()
     }
     
-    func parseGetResponse(_ data: Data) -> String? {
+    func parsePostResponse(_ data: Data) -> String? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(TradeData.self, from: data)

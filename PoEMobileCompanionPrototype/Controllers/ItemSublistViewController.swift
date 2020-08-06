@@ -18,26 +18,33 @@ class ItemSublistViewController : UITableViewController {
     var itemType: String?
     var selectedLeague: String!
     var itemManager = ItemManager()
-    var itemArray = [ItemModel]()
-    private var filteredItems: [ItemModel] = []
+    fileprivate var itemArray = [ItemModel]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    fileprivate var filteredItems: [ItemModel] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     var searchActive = Bool()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        itemManager.delegate = self
+        searchBar.delegate = self
+        setupNavBar()
+        setupSearchBar()
+        setupBackground()
         print("Sublist league: \(selectedLeague!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        itemManager.delegate = self
-        
-        setupNavBar()
-        setupSearchBar()
-        let backgroundImage = UIImage(named: "harvest-bg" )
-        let imageView = UIImageView(image: backgroundImage)
-        //        imageView.alpha = 0.8
-        imageView.contentMode = .scaleAspectFill
-        self.tableView.backgroundView = imageView
         loadItems()
     }
     
@@ -46,13 +53,19 @@ class ItemSublistViewController : UITableViewController {
     }
     
     func setupSearchBar() {
-        searchBar.delegate = self
         searchBar.searchTextField.textColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.searchTextField.leftView?.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.tintColor = #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)
         searchBar.backgroundColor = #colorLiteral(red: 0.05881328136, green: 0.05883090943, blue: 0.05880954117, alpha: 1)
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search items", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6389999986, green: 0.5529999733, blue: 0.4269999862, alpha: 1)])
         self.tableView.tableHeaderView = self.searchBar
+    }
+    
+    func setupBackground() {
+        let backgroundImage = UIImage(named: "harvest-bg" )
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.contentMode = .scaleAspectFill
+        self.tableView.backgroundView = imageView
     }
     
     //MARK: - TableView Datasource Methods
@@ -138,24 +151,18 @@ class ItemSublistViewController : UITableViewController {
 //MARK: - ItemManagerDelegate
 extension ItemSublistViewController: ItemManagerDelegate {
     
-    func didFetchItems(_ itemManager: ItemManager, items: [ItemModel]) {
+    func didFetchItems(items: [ItemModel]) {
         itemArray = items
         if searchActive == false {
             filteredItems = itemArray
         }
-        OperationQueue.main.addOperation({
-            self.tableView.reloadData()
-        })
     }
     
-    func didFetchCurrency(_ currencyManager: ItemManager, currencies: [ItemModel]) {
+    func didFetchCurrency(currencies: [ItemModel]) {
         itemArray = currencies
         if searchActive == false {
             filteredItems = itemArray
         }
-        OperationQueue.main.addOperation({
-            self.tableView.reloadData()
-        })
     }
     
     func didFailWithError(error: Error) {
@@ -188,7 +195,6 @@ extension ItemSublistViewController: UISearchBarDelegate {
             self.searchBar.text = ""
             filteredItems = itemArray
         }
-        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
