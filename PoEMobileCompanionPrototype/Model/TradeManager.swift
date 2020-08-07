@@ -9,32 +9,57 @@
 import Foundation
 
 protocol TradeManagerDelegate {
-    func didFetchTradeSearch(_ tradeManager: TradeManager, tradeUrl: URL)
+    func didFetchTradeSearch(tradeUrl: URL)
     func didFailWithError(error: Error)
 }
 
 class TradeManager {
+    
+    fileprivate let itemsNeedNameAndType = ["Watchstone", "UniqueJewels", "UniqueFlasks", "UniqueWeapons", "UniqueArmour", "UniqueAccesories"]
+    fileprivate let itemsNeedNameOnly = ["Prophecy", "UniqueMap"]
+    fileprivate let itemsNeedType = ["DeliriumOrb", "Oil", "Incubator", "Scarab", "Fossil", "Resonator", "Essence", "DivinationCard", "SkillGem", "BaseType", "Beast", "Vial"]
+    fileprivate let exchange = ["Currency", "Fragment",  "Maps"]
+    
+    // Helmet Enchant need filter processing with the data api link
     
     let searchId = String()
     var delegate: TradeManagerDelegate?
     var searchType = String()
     var league = String()
     
-    func createUrl(wantItem: String, haveItem: String, status: String) {
+    func createUrl(wantItem: ItemModel, haveItem: String, status: String) {
         league = UserDefaults.standard.string(forKey: "CurrentLeague")!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        print("Want: \(wantItem), Have: \(haveItem), Status: \(status), Current League: \(self.league)")
+        print("Want: \(wantItem.name), Have: \(haveItem), Status: \(status), Current League: \(self.league)")
         var parameters = String()
-        if (haveItem != "") {
+        
+        if ItemListModel.itemsInExchange.contains(wantItem.itemCategory) {
             parameters = """
-            {"exchange":{"status":{"option":"\(status)"},"have":["\(haveItem)"],"want":["\(wantItem)"]}}
+            {"exchange":{"status":{"option":"\(status)"},"have":["\(haveItem)"],"want":["\(wantItem.tradeId!)"]}}
             """
             searchType = "exchange"
-        } else {
+        } else if wantItem.itemCategory == "Map" {
             parameters = """
-            {"query":{"status":{"option":"\(status)"},"type":"\(wantItem)","stats":[{"type":"and","filters":[],"disabled":false}]},"sort":{"price":"asc"}}
+            {"exchange":{"status":{"option":"\(status)"},"have":["\(haveItem)"],"want":["\(wantItem.name.lowercased().replacingOccurrences(of: " ", with: "-"))"]}}
+            """
+            searchType = "exchange"
+        } else if ItemListModel.itemsWithNameOnly.contains(wantItem.itemCategory) {
+            parameters = """
+            {"query":{"status":{"option":"\(status)"},"name":"\(wantItem.name)","stats":[{"type":"and","filters":[],"disabled":false}]},"sort":{"price":"asc"}}
+            """
+            searchType = "search"
+        } else if ItemListModel.itemsWithNameAndType.contains(wantItem.itemCategory){
+            parameters = """
+            {"query":{"status":{"option":"\(status)"},"name":"\(wantItem.name)","type":"\(wantItem.itemBaseType!)","stats":[{"type":"and","filters":[],"disabled":false}]},"sort":{"price":"asc"}}
+            """
+            searchType = "search"
+        } else if ItemListModel.itemsWithTypeOnly.contains(wantItem.itemCategory) {
+            parameters = """
+            {"query":{"status":{"option":"\(status)"},"type":"\(wantItem.name)","stats":[{"type":"and","filters":[],"disabled":false}]},"sort":{"price":"asc"}}
             """
             searchType = "search"
         }
+        
+//        if (wantItem.itemBaseType != wantItem.name)
         
         let postData = parameters.data(using: .utf8)
         print(league)
@@ -58,7 +83,7 @@ class TradeManager {
             if let tradeId = self.parsePostResponse(safeData) {
                 let tradeUrl = self.prepareUrl(searchId: tradeId)
                 print("Trade url at safeData: \(tradeUrl)")
-                self.delegate?.didFetchTradeSearch(self, tradeUrl: tradeUrl)
+                self.delegate?.didFetchTradeSearch(tradeUrl: tradeUrl)
             }
         }
         task.resume()

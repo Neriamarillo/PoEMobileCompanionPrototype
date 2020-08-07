@@ -134,6 +134,7 @@ class ItemSublistViewController : UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ItemDetailsViewController
         
@@ -144,7 +145,7 @@ class ItemSublistViewController : UITableViewController {
     
     //MARK: - Model Manipulation Methods
     func loadItems() {
-        itemManager.fetchItems(itemType: selectedItem!, leagueName: self.selectedLeague)
+        itemManager.fetchItems(itemCategory: selectedItem!, leagueName: self.selectedLeague)
     }
 }
 

@@ -16,18 +16,18 @@ protocol ItemManagerDelegate {
 
 struct ItemManager {
     let apiURL = "https://poe.ninja/api/data/"
-    var itemType: String!
+    var itemCategory: String!
     var delegate: ItemManagerDelegate?
     
-    mutating func fetchItems(itemType: String, leagueName: String)  {
+    mutating func fetchItems(itemCategory: String, leagueName: String)  {
         var itemTypeOverview: String
-        self.itemType = itemType
-        if (self.itemType == "Currency" || self.itemType == "Fragment") {
+        self.itemCategory = itemCategory
+        if (self.itemCategory == "Currency" || self.itemCategory == "Fragment") {
             itemTypeOverview = "currencyoverview"
         } else {
             itemTypeOverview = "itemoverview"
         }
-        let originalUrl = "\(apiURL)\(itemTypeOverview)?league=\(leagueName)&type=\(itemType)"
+        let originalUrl = "\(apiURL)\(itemTypeOverview)?league=\(leagueName)&type=\(itemCategory)"
         let urlString = originalUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         performRequest(with: urlString!, itemTypeOverview: itemTypeOverview)
     }
@@ -77,8 +77,13 @@ struct ItemManager {
                     let itemLevel = item.levelRequired
                     let influence = item.variant
                     let tradeId = ""
+                    var itemBaseType = ""
+                    if let baseType = item.baseType {
+                        itemBaseType = baseType
+                    }
+                    let itemType = item.itemType
                     
-                    let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence, tradeId: tradeId)
+                    let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemCategory: self.itemCategory, itemLevel: itemLevel, influence: influence, tradeId: tradeId, itemBaseType: itemBaseType, itemType: itemType)
                     itemArray.append(parsedItem)
                 }
             }
@@ -118,7 +123,9 @@ struct ItemManager {
                     if let tradeIdCheck = itemDetails.tradeId {
                         tradeId = tradeIdCheck
                     }
-                    let currencyItem = ItemModel(id: id!, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemType: self.itemType, itemLevel: itemLevel, influence: influence, tradeId: tradeId)
+                    let itemBaseType = ""
+                    let itemType = ""
+                    let currencyItem = ItemModel(id: id!, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemCategory: self.itemCategory, itemLevel: itemLevel, influence: influence, tradeId: tradeId, itemBaseType: itemBaseType, itemType: itemType)
                     currencyArray.append(currencyItem)
                 }
             }

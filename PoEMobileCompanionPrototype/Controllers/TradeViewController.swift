@@ -14,7 +14,7 @@ class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     var webView: WKWebView!
     var searchUrl: URL!
     var tradeManager = TradeManager()
-    var wantItem = String()
+    var wantItem: ItemModel!
     var haveItem = String()
     
     override func loadView() {
@@ -30,7 +30,7 @@ class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         super.viewDidLoad()
         tradeManager.delegate = self
         
-        print("Want item: \(wantItem), Have item: \(haveItem)")
+        print("Want item: \(wantItem.name), Have item: \(haveItem)")
         tradeManager.createUrl(wantItem: wantItem, haveItem: haveItem, status: "online")
         
         /* TODO: Implement the creation of url for items now that it is working for currency type searches */
@@ -52,7 +52,7 @@ class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
 }
 //MARK: - Trade Manager Delegate
 extension TradeViewController: TradeManagerDelegate {
-    func didFetchTradeSearch(_ tradeManager: TradeManager, tradeUrl: URL) {
+    func didFetchTradeSearch(tradeUrl: URL) {
         self.searchUrl = tradeUrl
         DispatchQueue.main.async {
             self.webView.load(URLRequest(url: self.searchUrl!))

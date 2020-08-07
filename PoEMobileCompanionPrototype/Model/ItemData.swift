@@ -29,6 +29,8 @@ struct Item: Codable {
     let flavourText: String?
     let levelRequired: Int?
     let variant: String?
+    let baseType: String?
+    let itemType: String?
 }
 
 struct ItemSparkLine: Codable {

@@ -18,10 +18,12 @@ struct ItemModel {
     let gemLevel: Int?
     let gemQuality: Int?
     let flavourText: String?
-    let itemType: String
+    let itemCategory: String
     let itemLevel: Int?
     let influence: String?
     let tradeId: String?
+    let itemBaseType: String?
+    let itemType: String?
     
     var valueString: String {
         return String(format: ".1f", priceInChaos)

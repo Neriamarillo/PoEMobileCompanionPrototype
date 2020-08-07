@@ -75,11 +75,12 @@ class ItemDetailsViewController: UIViewController {
             case "goToWiki":
                 let wikiDestination = segue.destination as! WikiViewController
                 wikiDestination.searchItem = selectedItem.name
-                wikiDestination.searchItemType = selectedItem.itemType
+                wikiDestination.searchItemType = selectedItem.itemCategory
             case "goToTradeFromDetails":
                 let tradeDestination = segue.destination as! TradeViewController
-                tradeDestination.wantItem = selectedItem.tradeId!.lowercased()
-                tradeDestination.haveItem = "exalt"
+                tradeDestination.wantItem = self.selectedItem
+                tradeDestination.haveItem = "chaos"
+            /* TODO: Implement selection between chaos or exalt for paying price */
             default:
                 return
         }
