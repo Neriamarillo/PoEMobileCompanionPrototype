@@ -33,7 +33,12 @@ class ItemDetailsViewController: UIViewController {
     }
     
     func setupNavBar() {
-        navigationItem.title = selectedItem.name
+        if selectedItem.itemCategory == "HelmetEnchant" {
+            flavourTextLabel.text = selectedItem.name
+            navigationItem.title = "Helmet Enchants"
+        } else {
+            navigationItem.title = selectedItem.name
+        }
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .save, target: .none, action: .none)]
     }
     
@@ -49,14 +54,13 @@ class ItemDetailsViewController: UIViewController {
     
     func loadViews() {
         if let iconUrl = selectedItem.icon {
-            let url = URL(string: iconUrl)
-            itemImage.load(url: url!)
+            if let url = URL(string: iconUrl) {
+                itemImage.load(url: url)
+            }            
         }
         if let flavourText = selectedItem.flavourTextString, flavourText != "" {
             flavourTextLabel.text = "\(flavourText)"
             flavourTextLabel.sizeToFit()
-        } else {
-            flavourTextLabel.isHidden = true
         }
         priceInChaosLabel.text = "\(selectedItem.priceInChaos)x"
         chaosPriceImage.image = UIImage(named: "CurrencyIcon")

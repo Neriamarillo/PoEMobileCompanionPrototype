@@ -13,8 +13,8 @@ class ItemSublistViewController : UITableViewController {
     @IBOutlet var itemSublistTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var selectedItem : String?
-    var selectedItemString : String?
+    var selectedItem: String?
+    var selectedItemString: String?
     var itemType: String?
     var selectedLeague: String!
     var itemManager = ItemManager()
@@ -106,11 +106,12 @@ class ItemSublistViewController : UITableViewController {
         cell.currentPriceLabel?.text = "\(item.priceInChaos)x"
         
         if let iconUrl = item.icon {
-            let url = URL(string: iconUrl)
-            cell.itemImageView.load(url: url!)
+            if let url = URL(string: iconUrl) {
+                cell.itemImageView.load(url: url)
+            }
         }
-        cell.currentPriceIcon.image = UIImage(named: "CurrencyIcon")
         
+        cell.currentPriceIcon.image = UIImage(named: "CurrencyIcon")
         if selectedItem == "SkillGem" {
             cell.gemLevelLabel?.text = "Level: \(item.gemLevel!)"
             cell.gemQualityLabel?.text = "Quality: \(item.gemQuality!)"
@@ -121,7 +122,6 @@ class ItemSublistViewController : UITableViewController {
             cell.gemLevelLabel?.isHidden = true
             cell.gemQualityLabel?.isHidden = true
         }
-        
         if let itemHasInfluence = item.influence, itemHasInfluence != "" {
             cell.influenceImageView.image = UIImage(named: "\(itemHasInfluence)Symbol")
         }
@@ -146,6 +146,7 @@ class ItemSublistViewController : UITableViewController {
     //MARK: - Model Manipulation Methods
     func loadItems() {
         itemManager.fetchItems(itemCategory: selectedItem!, leagueName: self.selectedLeague)
+        self.selectedItemString = ItemListModel.getItemString(itemType: self.selectedItem!)
     }
 }
 

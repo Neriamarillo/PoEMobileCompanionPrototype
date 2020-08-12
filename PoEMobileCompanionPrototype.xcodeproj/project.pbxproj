@@ -23,6 +23,9 @@
 		1F69E7CD24BCEF2800991CB9 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F69E7CC24BCEF2800991CB9 /* ItemData.swift */; };
 		1F69E7CF24BE088900991CB9 /* ItemSublistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F69E7CE24BE088900991CB9 /* ItemSublistTableViewCell.swift */; };
 		1F69E7D124C7305E00991CB9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F69E7D024C7305D00991CB9 /* Utils.swift */; };
+		1F6F4A4524E3088E002C231D /* PoEMobileCompanionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6F4A4424E3088E002C231D /* PoEMobileCompanionTests.swift */; };
+		1F6F4A4D24E31495002C231D /* Currency.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F6F4A4C24E31495002C231D /* Currency.json */; };
+		1F6F4A4F24E31FA6002C231D /* Item.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F6F4A4E24E31FA6002C231D /* Item.json */; };
 		1F98C46F24AA8D0B004FD54B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C46E24AA8D0B004FD54B /* AppDelegate.swift */; };
 		1F98C47124AA8D0B004FD54B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C47024AA8D0B004FD54B /* SceneDelegate.swift */; };
 		1F98C47324AA8D0B004FD54B /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C47224AA8D0B004FD54B /* WikiViewController.swift */; };
@@ -33,6 +36,16 @@
 		1F98C48724AB9C0F004FD54B /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C48624AB9C0F004FD54B /* TradeViewController.swift */; };
 		1F98C48924ABB251004FD54B /* ForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98C48824ABB251004FD54B /* ForumViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1F6F4A4724E3088E002C231D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F98C46324AA8D0B004FD54B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F98C46A24AA8D0B004FD54B;
+			remoteInfo = PoEMobileCompanionPrototype;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1F13DB8B24D3336400EC108B /* LeagueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueData.swift; sourceTree = "<group>"; };
@@ -51,6 +64,11 @@
 		1F69E7CC24BCEF2800991CB9 /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		1F69E7CE24BE088900991CB9 /* ItemSublistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSublistTableViewCell.swift; sourceTree = "<group>"; };
 		1F69E7D024C7305D00991CB9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		1F6F4A4224E3088E002C231D /* PoEMobileCompanionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoEMobileCompanionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F6F4A4424E3088E002C231D /* PoEMobileCompanionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoEMobileCompanionTests.swift; sourceTree = "<group>"; };
+		1F6F4A4624E3088E002C231D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F6F4A4C24E31495002C231D /* Currency.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Currency.json; sourceTree = "<group>"; };
+		1F6F4A4E24E31FA6002C231D /* Item.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Item.json; sourceTree = "<group>"; };
 		1F98C46B24AA8D0B004FD54B /* PoEMobileCompanionPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoEMobileCompanionPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F98C46E24AA8D0B004FD54B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F98C47024AA8D0B004FD54B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +83,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1F6F4A3F24E3088E002C231D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F98C46824AA8D0B004FD54B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,10 +156,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		1F6F4A4324E3088E002C231D /* PoEMobileCompanionTests */ = {
+			isa = PBXGroup;
+			children = (
+				1F6F4A4424E3088E002C231D /* PoEMobileCompanionTests.swift */,
+				1F6F4A4624E3088E002C231D /* Info.plist */,
+				1F6F4A4C24E31495002C231D /* Currency.json */,
+				1F6F4A4E24E31FA6002C231D /* Item.json */,
+			);
+			path = PoEMobileCompanionTests;
+			sourceTree = "<group>";
+		};
 		1F98C46224AA8D0B004FD54B = {
 			isa = PBXGroup;
 			children = (
 				1F98C46D24AA8D0B004FD54B /* PoEMobileCompanionPrototype */,
+				1F6F4A4324E3088E002C231D /* PoEMobileCompanionTests */,
 				1F98C46C24AA8D0B004FD54B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -143,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				1F98C46B24AA8D0B004FD54B /* PoEMobileCompanionPrototype.app */,
+				1F6F4A4224E3088E002C231D /* PoEMobileCompanionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,6 +205,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F6F4A4124E3088E002C231D /* PoEMobileCompanionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F6F4A4924E3088E002C231D /* Build configuration list for PBXNativeTarget "PoEMobileCompanionTests" */;
+			buildPhases = (
+				1F6F4A3E24E3088E002C231D /* Sources */,
+				1F6F4A3F24E3088E002C231D /* Frameworks */,
+				1F6F4A4024E3088E002C231D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1F6F4A4824E3088E002C231D /* PBXTargetDependency */,
+			);
+			name = PoEMobileCompanionTests;
+			productName = PoEMobileCompanionTests;
+			productReference = 1F6F4A4224E3088E002C231D /* PoEMobileCompanionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1F98C46A24AA8D0B004FD54B /* PoEMobileCompanionPrototype */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F98C48124AA8D0E004FD54B /* Build configuration list for PBXNativeTarget "PoEMobileCompanionPrototype" */;
@@ -190,10 +246,14 @@
 		1F98C46324AA8D0B004FD54B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Jorge Nieves";
 				TargetAttributes = {
+					1F6F4A4124E3088E002C231D = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 1F98C46A24AA8D0B004FD54B;
+					};
 					1F98C46A24AA8D0B004FD54B = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -213,11 +273,21 @@
 			projectRoot = "";
 			targets = (
 				1F98C46A24AA8D0B004FD54B /* PoEMobileCompanionPrototype */,
+				1F6F4A4124E3088E002C231D /* PoEMobileCompanionTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1F6F4A4024E3088E002C231D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F6F4A4F24E31FA6002C231D /* Item.json in Resources */,
+				1F6F4A4D24E31495002C231D /* Currency.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F98C46924AA8D0B004FD54B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -231,6 +301,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1F6F4A3E24E3088E002C231D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F6F4A4524E3088E002C231D /* PoEMobileCompanionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F98C46724AA8D0B004FD54B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +340,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1F6F4A4824E3088E002C231D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F98C46A24AA8D0B004FD54B /* PoEMobileCompanionPrototype */;
+			targetProxy = 1F6F4A4724E3088E002C231D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		1F98C47624AA8D0B004FD54B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -282,6 +368,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1F6F4A4A24E3088E002C231D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KTH7CC6QGU;
+				INFOPLIST_FILE = PoEMobileCompanionTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jn769.PoEMobileCompanionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PoEMobileCompanionPrototype.app/PoEMobileCompanionPrototype";
+			};
+			name = Debug;
+		};
+		1F6F4A4B24E3088E002C231D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KTH7CC6QGU;
+				INFOPLIST_FILE = PoEMobileCompanionTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jn769.PoEMobileCompanionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PoEMobileCompanionPrototype.app/PoEMobileCompanionPrototype";
+			};
+			name = Release;
+		};
 		1F98C47F24AA8D0E004FD54B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -437,6 +565,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F6F4A4924E3088E002C231D /* Build configuration list for PBXNativeTarget "PoEMobileCompanionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F6F4A4A24E3088E002C231D /* Debug */,
+				1F6F4A4B24E3088E002C231D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1F98C46624AA8D0B004FD54B /* Build configuration list for PBXProject "PoEMobileCompanionPrototype" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

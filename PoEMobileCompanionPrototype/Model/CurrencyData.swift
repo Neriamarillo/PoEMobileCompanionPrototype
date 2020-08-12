@@ -8,52 +8,56 @@
 
 import Foundation
 
-struct CurrencyData: Codable {
-    let info: [Currency]?
-    let details: [CurrencyDetails]
-    
+// MARK: - CurrencyData
+struct CurrencyData: Decodable {
+    let lines: [Currency]?
+    let currencyDetails: [CurrencyDetail]?
+}
+
+// MARK: - Line
+struct Currency: Decodable {
+    let currencyTypeName: String
+    let pay, receive: Pay?
+    let receiveSparkLine: SparkLine
+    let chaosEquivalent: Double
+    let detailsID: String
+
     enum CodingKeys: String, CodingKey {
-        case info = "lines"
-        case details = "currencyDetails"
+        case currencyTypeName, pay, receive, receiveSparkLine, chaosEquivalent
+        case detailsID = "detailsId"
     }
 }
 
-struct Currency: Codable {
-    let name: String
-    let pay: Buy?
-    let receive: Buy?
-    let chaosValue: Double
-    let sparkLine: CurrencySparkLine
-    
-    enum CodingKeys: String, CodingKey {
-        case name = "currencyTypeName"
-        case pay
-        case receive
-        case chaosValue = "chaosEquivalent"
-        case sparkLine = "receiveSparkLine"
-    }
-}
-
-struct Buy: Codable {
-    let payId: Int?
-    let buyId: Int?
-    let leagueId: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case payId = "pay_currency_id"
-        case buyId = "get_currency_id"
-        case leagueId = "league_id"
-    }
-}
-
-struct CurrencySparkLine: Codable {
-    let data: [Float?]
+// MARK: - SparkLine
+struct SparkLine: Decodable {
+    let data: [Double?]
     let totalChange: Double
 }
 
-struct CurrencyDetails: Codable {
-    let id: Float
+// MARK: - Pay
+struct Pay: Decodable {
+    let id, payCurrencyID, getCurrencyID: Int?
+    let value: Double
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case payCurrencyID = "pay_currency_id"
+        case getCurrencyID = "get_currency_id"
+        case value
+    }
+}
+
+// MARK: - CurrencyDetail
+struct CurrencyDetail: Decodable {
+    let id: Int
     let icon: String
     let name: String
-    let tradeId: String?
+    let poeTradeID: Int
+    let tradeID: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, icon, name
+        case poeTradeID = "poeTradeId"
+        case tradeID = "tradeId"
+    }
 }

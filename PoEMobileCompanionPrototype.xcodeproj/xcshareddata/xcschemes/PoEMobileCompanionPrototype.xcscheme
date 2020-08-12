@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1F6F4A4124E3088E002C231D"
+               BuildableName = "PoEMobileCompanionTests.xctest"
+               BlueprintName = "PoEMobileCompanionTests"
+               ReferencedContainer = "container:PoEMobileCompanionPrototype.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

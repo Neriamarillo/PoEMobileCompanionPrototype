@@ -17,17 +17,15 @@ protocol ItemManagerDelegate {
 struct ItemManager {
     let apiURL = "https://poe.ninja/api/data/"
     var itemCategory: String!
+    var itemTypeOverview = String()
     var delegate: ItemManagerDelegate?
     
     mutating func fetchItems(itemCategory: String, leagueName: String)  {
-        var itemTypeOverview: String
         self.itemCategory = itemCategory
-        if (self.itemCategory == "Currency" || self.itemCategory == "Fragment") {
-            itemTypeOverview = "currencyoverview"
-        } else {
-            itemTypeOverview = "itemoverview"
-        }
-        let originalUrl = "\(apiURL)\(itemTypeOverview)?league=\(leagueName)&type=\(itemCategory)"
+        //MARK: - TEST
+        self.itemTypeOverview = ItemListModel.getItemTypeOverview(itemCategory: itemCategory)
+        
+        let originalUrl = "\(apiURL)\(self.itemTypeOverview)?league=\(leagueName)&type=\(itemCategory)"
         let urlString = originalUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         performRequest(with: urlString!, itemTypeOverview: itemTypeOverview)
     }
@@ -42,15 +40,8 @@ struct ItemManager {
                     return
                 }
                 if let safeData = data {
-                    switch itemTypeOverview {
-                        case "itemoverview":
-                            if let items = self.parseItemJSON(safeData) {
-                                self.delegate?.didFetchItems(items: items)
-                        }
-                        default:
-                            if let currencies = self.parseCurrencyJSON(safeData) {
-                                self.delegate?.didFetchCurrency(currencies: currencies)
-                        }
+                    if let itemData = self.parseJSON(safeData) {
+                        self.delegate?.didFetchItems(items: itemData)
                     }
                 }
             }
@@ -58,81 +49,35 @@ struct ItemManager {
         }
     }
     
-    func parseItemJSON(_ itemData: Data) -> [ItemModel]? {
-        var itemArray = [ItemModel]()
-        let decoder = JSONDecoder()
-        do {
-            let decodedData = try decoder.decode(ItemData.self, from: itemData)
-            if !decodedData.info!.isEmpty {
-                for item in decodedData.info! {
-                    let id = item.id
-                    let name = item.name
-                    let value = item.chaosValue
-                    let totalChange = item.sparkline.totalChange
-                    let icon = item.icon
-                    let exaltValue = item.exaltedValue
-                    let gemLevel = item.gemLevel
-                    let gemQuality = item.gemQuality
-                    let flavourText = item.flavourText
-                    let itemLevel = item.levelRequired
-                    let influence = item.variant
-                    let tradeId = ""
-                    var itemBaseType = ""
-                    if let baseType = item.baseType {
-                        itemBaseType = baseType
-                    }
-                    let itemType = item.itemType
-                    
-                    let parsedItem = ItemModel(id: id, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemCategory: self.itemCategory, itemLevel: itemLevel, influence: influence, tradeId: tradeId, itemBaseType: itemBaseType, itemType: itemType)
-                    itemArray.append(parsedItem)
-                }
-            }
-            return itemArray
-        } catch {
-            delegate?.didFailWithError(error: error)
-            return nil
-        }
-    }
+    //MARK: - TEST CODE
     
-    func parseCurrencyJSON(_ currencyData: Data) -> [ItemModel]? {
-        var currencyArray = [ItemModel]()
+    func parseJSON(_ itemData: Data) -> [ItemModel]? {
         let decoder = JSONDecoder()
+        var itemCollection: [ItemModel] = []
+        
         do {
-            let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-            if !(decodedData.info!.isEmpty) {
-                for item in decodedData.info! {
-                    var id: Int?
-                    if let idCheck = item.pay?.payId {
-                        id = idCheck
-                    } else {
-                        id = item.receive?.buyId
-                    }
-                    print("Item id: \(id!)")
-                    let itemDetails = decodedData.details[id! - 1]
-                    let name = item.name
-                    let value = item.chaosValue
-                    let totalChange = item.sparkLine.totalChange
-                    let icon = itemDetails.icon
-                    let exaltValue = 0.0
-                    let gemLevel = 0
-                    let gemQuality = 0
-                    let flavourText = ""
-                    let itemLevel = 0
-                    let influence = ""
-                    var tradeId: String!
-                    if let tradeIdCheck = itemDetails.tradeId {
-                        tradeId = tradeIdCheck
-                    }
-                    let itemBaseType = ""
-                    let itemType = ""
-                    let currencyItem = ItemModel(id: id!, name: name, icon: icon, priceInChaos: value, priceInExalt: exaltValue, totalChange: totalChange, gemLevel: gemLevel, gemQuality: gemQuality, flavourText: flavourText, itemCategory: self.itemCategory, itemLevel: itemLevel, influence: influence, tradeId: tradeId, itemBaseType: itemBaseType, itemType: itemType)
-                    currencyArray.append(currencyItem)
+            let decodedItems = try decoder.decode(ItemData.self, from: itemData)
+            if !decodedItems.lines!.isEmpty {
+                for item in decodedItems.lines! {
+                    let type = item.getItemBaseType(itemCategory: self.itemCategory)
+                    itemCollection.append(ItemModel(id: item.id, name: item.name, icon: item.icon ?? "", priceInChaos: item.chaosValue, priceInExalt: item.exaltedValue ?? 0, totalChange: item.sparkline.totalChange, tradeId: item.detailsId, gemLevel: item.gemLevel ?? 0, gemQuality: item.gemQuality ?? 0, flavourText: item.flavourText, itemCategory: self.itemCategory, itemLevel: item.levelRequired ?? 0, influence: item.variant ?? "", itemBaseType: type, itemType: item.itemType ?? ""))
                 }
             }
-            return currencyArray
         } catch {
-            delegate?.didFailWithError(error: error)
-            return nil
+            do {
+                let decodedItems = try decoder.decode(CurrencyData.self, from: itemData)
+                if !decodedItems.lines!.isEmpty {
+                    for item in decodedItems.lines! {
+                        let id = item.pay?.payCurrencyID ?? item.receive?.getCurrencyID
+                        let itemDetails = decodedItems.currencyDetails![id! - 1]
+                        itemCollection.append(ItemModel(id: id ?? 0, name: item.currencyTypeName, icon: itemDetails.icon, priceInChaos: item.chaosEquivalent, priceInExalt: 0, totalChange: item.receiveSparkLine.totalChange, tradeId: itemDetails.tradeID, gemLevel: nil, gemQuality: nil, flavourText: nil, itemCategory: self.itemCategory, itemLevel: nil, influence: nil, itemBaseType: nil, itemType: nil))
+                    }
+                }
+            } catch {
+                delegate?.didFailWithError(error: error)
+                return nil
+            }
         }
+        return itemCollection
     }
 }

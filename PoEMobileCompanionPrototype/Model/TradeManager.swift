@@ -25,12 +25,13 @@ class TradeManager {
     let searchId = String()
     var delegate: TradeManagerDelegate?
     var searchType = String()
+    var parameters = String()
     var league = String()
+    
     
     func createUrl(wantItem: ItemModel, haveItem: String, status: String) {
         league = UserDefaults.standard.string(forKey: "CurrentLeague")!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         print("Want: \(wantItem.name), Have: \(haveItem), Status: \(status), Current League: \(self.league)")
-        var parameters = String()
         
         if ItemListModel.itemsInExchange.contains(wantItem.itemCategory) {
             parameters = """
@@ -59,12 +60,10 @@ class TradeManager {
             searchType = "search"
         }
         
-//        if (wantItem.itemBaseType != wantItem.name)
-        
         let postData = parameters.data(using: .utf8)
-        print(league)
+        print(self.league)
         
-        var request = URLRequest(url: URL(string: "https://www.pathofexile.com/api/trade/\(searchType)/\(league)")!, timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "https://www.pathofexile.com/api/trade/\(self.searchType)/\(self.league)")!, timeoutInterval: Double.infinity)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"

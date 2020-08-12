@@ -24,6 +24,7 @@ class HomeController: UITableViewController {
         setLeague()
         
         navigationController?.navigationBar.barStyle = .black
+        navigationController?.isToolbarHidden = true
         if selectedLeague == nil {
             self.selectedLeague = defaultLeague
         }

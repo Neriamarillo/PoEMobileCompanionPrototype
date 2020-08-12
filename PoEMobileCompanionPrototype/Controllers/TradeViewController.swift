@@ -30,7 +30,7 @@ class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         super.viewDidLoad()
         tradeManager.delegate = self
         
-        print("Want item: \(wantItem.name), Have item: \(haveItem)")
+        print("Want item: \(wantItem!), Have item: \(haveItem)")
         tradeManager.createUrl(wantItem: wantItem, haveItem: haveItem, status: "online")
         
         /* TODO: Implement the creation of url for items now that it is working for currency type searches */
@@ -38,6 +38,10 @@ class TradeViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         toolbarItems = [refresh]
         navigationController?.isToolbarHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = true
     }
     
     // Setting webview content to correct device screen width
