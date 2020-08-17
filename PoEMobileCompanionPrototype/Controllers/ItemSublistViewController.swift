@@ -18,7 +18,7 @@ class ItemSublistViewController : UITableViewController {
     var itemType: String?
     var selectedLeague: String!
     var itemManager = ItemManager()
-    fileprivate var itemArray = [ItemModel]() {
+    fileprivate var itemArray: [ItemModel] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -80,8 +80,8 @@ class ItemSublistViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemSublistTableViewCell", for: indexPath) as! ItemSublistTableViewCell
-        let item = filteredItems[indexPath.row]
         
+        let item = filteredItems[indexPath.row]
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = #colorLiteral(red: 0.07800000161, green: 0.07800000161, blue: 0.07800000161, alpha: 0.8).withAlphaComponent(0.8)
         } else {
@@ -102,7 +102,6 @@ class ItemSublistViewController : UITableViewController {
             default:
                 fatalError()
         }
-        
         cell.currentPriceLabel?.text = "\(item.priceInChaos)x"
         
         if let iconUrl = item.icon {
@@ -115,14 +114,14 @@ class ItemSublistViewController : UITableViewController {
         if selectedItem == "SkillGem" {
             cell.gemLevelLabel?.text = "Level: \(item.gemLevel!)"
             cell.gemQualityLabel?.text = "Quality: \(item.gemQuality!)"
-        } else if let itemHasItemLevel = item.itemLevel, itemHasItemLevel != 0 {
+        } else if let itemHasItemLevel = item.levelRequired, itemHasItemLevel != 0 {
             cell.gemLevelLabel.text = "Item Level: \(itemHasItemLevel)"
             cell.gemQualityLabel.isHidden = true
         } else {
             cell.gemLevelLabel?.isHidden = true
             cell.gemQualityLabel?.isHidden = true
         }
-        if let itemHasInfluence = item.influence, itemHasInfluence != "" {
+        if let itemHasInfluence = item.variant, itemHasInfluence != "" {
             cell.influenceImageView.image = UIImage(named: "\(itemHasInfluence)Symbol")
         }
         
@@ -145,6 +144,7 @@ class ItemSublistViewController : UITableViewController {
     
     //MARK: - Model Manipulation Methods
     func loadItems() {
+        
         itemManager.fetchItems(itemCategory: selectedItem!, leagueName: self.selectedLeague)
         self.selectedItemString = ItemListModel.getItemString(itemType: self.selectedItem!)
     }
@@ -152,7 +152,6 @@ class ItemSublistViewController : UITableViewController {
 
 //MARK: - ItemManagerDelegate
 extension ItemSublistViewController: ItemManagerDelegate {
-    
     func didFetchItems(items: [ItemModel]) {
         itemArray = items
         if searchActive == false {

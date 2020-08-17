@@ -31,11 +31,11 @@ class TradeManager {
     
     func createUrl(wantItem: ItemModel, haveItem: String, status: String) {
         league = UserDefaults.standard.string(forKey: "CurrentLeague")!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        print("Want: \(wantItem.name), Have: \(haveItem), Status: \(status), Current League: \(self.league)")
+        print("Want: \(wantItem.detailsId!), Have: \(haveItem), Status: \(status), Current League: \(self.league)")
         
         if ItemListModel.itemsInExchange.contains(wantItem.itemCategory) {
             parameters = """
-            {"exchange":{"status":{"option":"\(status)"},"have":["\(haveItem)"],"want":["\(wantItem.tradeId!)"]}}
+            {"exchange":{"status":{"option":"\(status)"},"have":["\(haveItem)"],"want":["\(wantItem.detailsId!)"]}}
             """
             searchType = "exchange"
         } else if wantItem.itemCategory == "Map" {
@@ -50,7 +50,7 @@ class TradeManager {
             searchType = "search"
         } else if ItemListModel.itemsWithNameAndType.contains(wantItem.itemCategory){
             parameters = """
-            {"query":{"status":{"option":"\(status)"},"name":"\(wantItem.name)","type":"\(wantItem.itemBaseType!)","stats":[{"type":"and","filters":[],"disabled":false}]},"sort":{"price":"asc"}}
+            {"query":{"status":{"option":"\(status)"},"name":"\(wantItem.name)","type":"\(wantItem.baseType!)","stats":[{"type":"and","filters":[],"disabled":false}]},"sort":{"price":"asc"}}
             """
             searchType = "search"
         } else if ItemListModel.itemsWithTypeOnly.contains(wantItem.itemCategory) {

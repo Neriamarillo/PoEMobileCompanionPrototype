@@ -9,23 +9,23 @@
 import Foundation
 
 // MARK: - CurrencyData
-struct CurrencyData: Decodable {
-    let lines: [Currency]?
+struct CurrencyRoot: Decodable {
+    let lines: [CurrencyData]?
     let currencyDetails: [CurrencyDetail]?
 }
 
 // MARK: - Line
-struct Currency: Decodable {
+struct CurrencyData: Decodable {
     let currencyTypeName: String
     let pay, receive: Pay?
     let receiveSparkLine: SparkLine
     let chaosEquivalent: Double
-    let detailsID: String
-
-    enum CodingKeys: String, CodingKey {
-        case currencyTypeName, pay, receive, receiveSparkLine, chaosEquivalent
-        case detailsID = "detailsId"
-    }
+    let detailsId: String
+    
+    func getItemId() -> Int {
+        let id = pay?.payCurrencyID ?? receive?.getCurrencyID
+        return id!
+    }   
 }
 
 // MARK: - SparkLine
@@ -53,11 +53,10 @@ struct CurrencyDetail: Decodable {
     let icon: String
     let name: String
     let poeTradeID: Int
-    let tradeID: String?
+    let tradeId: String?
 
     enum CodingKeys: String, CodingKey {
-        case id, icon, name
+        case id, icon, name, tradeId
         case poeTradeID = "poeTradeId"
-        case tradeID = "tradeId"
     }
 }

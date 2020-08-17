@@ -9,12 +9,12 @@
 import Foundation
 
 //MARK: - ItemData
-struct ItemData: Decodable {
-    var lines: [Item]?
+struct ItemRoot: Decodable {
+    var lines: [ItemData]?
 }
 
 //MARK: - Item Line
-struct Item: Decodable {
+struct ItemData: Decodable {
     var id: Int
     var name: String
     var icon: String?

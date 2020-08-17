@@ -14,19 +14,28 @@ class PoEMobileCompanionTests: XCTestCase {
     
     func testJsonDecoding() {
         let bundle = Bundle(for: type(of: self))
-        guard let url = bundle.url(forResource: "Currency", withExtension: "json"), let data = try? Data(contentsOf: url) else {
+        guard let url = bundle.url(forResource: "Item", withExtension: "json"), let data = try? Data(contentsOf: url) else {
             fatalError("Currency.json not found")
         }
         
         let decoder = JSONDecoder()
-        guard let items = try? decoder.decode(CurrencyData.self, from: data) else {
+        guard let items = try? decoder.decode(ItemRoot.self, from: data) else {
             fatalError("Could not decode data")
         }
-        
 //        XCTAssertEqual((item.lines != nil), true)
         for item in items.lines! {
-            XCTAssertTrue(item.chaosEquivalent > 0)
+//            XCTAssertTrue(item.chaosEquivalent > 0)
+//            XCTAssertTrue(item.chaosValue > 0)
+            XCTAssertTrue(item.name != "")
         }
     }
+    
+//    func testModel() {
+//        var itemModel: [ItemModel] = []
+//        let item = ItemModel
+//
+//        itemModel.append(item)
+//
+//    }
     
 }
