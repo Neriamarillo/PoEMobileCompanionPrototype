@@ -19,9 +19,11 @@ struct ItemListModel {
     
     static let itemsWithNameOnly: [String] = ["Prophecy", "UniqueMap"]
     
-    static let itemsWithTypeOnly: [String] = ["DeliriumOrb", "Oil", "Incubator", "Scarab", "Fossil", "Resonator", "Essence", "DivinationCard", "SkillGem", "BaseType", "Beast", "Vial"]
+    static let itemsWithTypeOnly: [String] = ["SkillGem", "BaseType", "Beast", "Vial"]
     
-    static let itemsInExchange: [String] = ["Currency", "Fragment"]
+    static let itemsInExchange: [String] = ["Currency", "Fragment", "Oil", "DeliriumOrb", "Incubator", "Scarab", "Fossil", "Resonator", "Essence", "DivinationCard"]
+    
+    static let currencyTypes: [String] = ["Currency", "Fragment"]
     
     static func getItemString(itemType: String) -> String! {
         let itemLocation = ItemListModel.itemTypes.firstIndex(of: itemType)!
@@ -29,7 +31,7 @@ struct ItemListModel {
     }
     
     static func getItemTypeOverview(itemCategory: String) -> String {
-        if itemsInExchange.contains(itemCategory) {
+        if currencyTypes.contains(itemCategory) {
             return "currencyoverview"
         }
         return "itemoverview"

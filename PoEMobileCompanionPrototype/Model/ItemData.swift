@@ -50,6 +50,15 @@ struct ItemData: Decodable {
                 return baseType ?? ""
         }
     }
+    
+    func getDetailsId(itemCategory: String) -> String {
+        switch itemCategory {
+            case "Scarab":
+                return detailsId!.replacingOccurrences(of: "winged", with: "jewelled")
+            default:
+                return detailsId!
+        }
+    }
 }
 
 //MARK: - Sparkline

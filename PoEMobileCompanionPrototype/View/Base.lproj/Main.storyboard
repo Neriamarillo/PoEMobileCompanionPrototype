@@ -231,12 +231,24 @@
                                                         <color key="textColor" name="TradeTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ek0-ew-V7C">
-                                                        <rect key="frame" x="20" y="48" width="91" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iAg-il-uqB">
+                                                        <rect key="frame" x="20" y="60" width="180" height="47"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <state key="normal" title="Trade Search"/>
+                                                        <state key="normal" title="Have:">
+                                                            <color key="titleColor" name="TradeTextColor"/>
+                                                        </state>
                                                         <connections>
-                                                            <segue destination="G0h-r9-UIV" kind="show" identifier="goToTradeFromDetails" id="2kh-Dh-6qU"/>
+                                                            <action selector="currencySelectionButtonPressed:" destination="J5C-ad-ak3" eventType="touchUpInside" id="hFY-rf-nGm"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ek0-ew-V7C">
+                                                        <rect key="frame" x="266" y="73" width="128" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Trade Search" image="dollarsign.circle" catalog="system">
+                                                            <color key="titleColor" name="TradeTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="tradeSearchButtonPressed:" destination="J5C-ad-ak3" eventType="touchUpInside" id="6Pc-tD-noz"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -290,11 +302,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="chaosPriceImage" destination="kdk-HD-Jut" id="HfX-Se-3kx"/>
+                        <outlet property="currencySelectionButton" destination="iAg-il-uqB" id="Y9g-3s-bMH"/>
                         <outlet property="flavourTextLabel" destination="FmG-n2-Pt5" id="vJ2-vo-Zy0"/>
                         <outlet property="graphView" destination="afG-Zo-8Fj" id="8gS-qq-TfO"/>
                         <outlet property="itemImage" destination="EuO-oV-udn" id="mWp-1d-1vg"/>
                         <outlet property="priceInChaosLabel" destination="TQs-aQ-tey" id="aj3-k6-pr2"/>
                         <outlet property="wikiButton" destination="RiU-M8-TNO" id="mtn-AV-QjP"/>
+                        <segue destination="G0h-r9-UIV" kind="show" identifier="goToTradeFromDetails" id="APF-bg-YD4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xil-va-ycf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -634,13 +648,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2kh-Dh-6qU"/>
+        <segue reference="APF-bg-YD4"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.2.squarepath" catalog="system" width="128" height="89"/>
         <image name="book" catalog="system" width="128" height="101"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="dollarsign.circle" catalog="system" width="128" height="121"/>
         <image name="hammer" catalog="system" width="128" height="115"/>
         <image name="macwindow" catalog="system" width="128" height="93"/>
         <image name="person" catalog="system" width="128" height="117"/>

@@ -22,6 +22,7 @@ struct ItemManager {
     
     mutating func fetchItems(itemCategory: String, leagueName: String)  {
         self.itemCategory = itemCategory
+        print("Item Category @ ItemManager: \(itemCategory)")
         //MARK: - TEST
         self.itemTypeOverview = ItemListModel.getItemTypeOverview(itemCategory: itemCategory)
         
@@ -60,7 +61,7 @@ struct ItemManager {
                 for item in decodedItems.lines! {
                     
                     let type = item.getItemBaseType(itemCategory: self.itemCategory)
-                    itemCollection.append(ItemModel(id: item.id, name: item.name, icon: item.icon, mapTier: item.mapTier, levelRequired: item.levelRequired, baseType: type, stackSize: item.stackSize, variant: item.variant, prophecyText: item.prophecyText, links: item.links, itemClass: item.itemClass, flavourText: item.flavourText, corrupted: item.corrupted, gemLevel: item.gemLevel, gemQuality: item.gemQuality, itemType: item.itemType, priceInChaos: item.chaosValue, exaltedValue: item.exaltedValue, totalChange: item.sparkline.totalChange, count: item.count, detailsId: item.detailsId, mapRegion: item.mapRegion, itemCategory: self.itemCategory))
+                    itemCollection.append(ItemModel(id: item.id, name: item.name, icon: item.icon, mapTier: item.mapTier, levelRequired: item.levelRequired, baseType: type, stackSize: item.stackSize, variant: item.variant, prophecyText: item.prophecyText, links: item.links, itemClass: item.itemClass, flavourText: item.flavourText, corrupted: item.corrupted, gemLevel: item.gemLevel, gemQuality: item.gemQuality, itemType: item.itemType, priceInChaos: item.chaosValue, exaltedValue: item.exaltedValue, totalChange: item.sparkline.totalChange, count: item.count, detailsId: item.getDetailsId(itemCategory: self.itemCategory), mapRegion: item.mapRegion, itemCategory: self.itemCategory))
                 }
             }
         } catch {
@@ -76,6 +77,7 @@ struct ItemManager {
                 }
             } catch {
                 delegate?.didFailWithError(error: error)
+                print("Error at parse")
                 return nil
             }
         }

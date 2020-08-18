@@ -62,7 +62,7 @@ class ItemSublistViewController : UITableViewController {
     }
     
     func setupBackground() {
-        let backgroundImage = UIImage(named: "harvest-bg" )
+        let backgroundImage = UIImage(named: "harvest-bg-crop" )
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView

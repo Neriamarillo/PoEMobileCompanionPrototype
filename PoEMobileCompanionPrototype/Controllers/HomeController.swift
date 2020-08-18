@@ -30,7 +30,7 @@ class HomeController: UITableViewController {
         }
         navigationItem.rightBarButtonItem =
             UIBarButtonItem(title: "League: \(self.selectedLeague!)", style: .plain, target: self, action: #selector(presentPopover))
-        let backgroundImage = UIImage(named: "harvest-bg")
+        let backgroundImage = UIImage(named: "harvest-bg-crop")
         let imageView = UIImageView(image: backgroundImage)
         //        imageView.alpha = 0.8
         imageView.contentMode = .scaleAspectFill
