@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ItemDetailsViewController: UIViewController {
     
@@ -16,6 +17,7 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var priceInChaosLabel: UILabel!
     @IBOutlet weak var chaosPriceImage: UIImageView!
     @IBOutlet weak var currencySelectionButton: UIButton!
+    
     
     @IBOutlet weak var graphView: UIView!
     
@@ -49,7 +51,7 @@ class ItemDetailsViewController: UIViewController {
         let backgroundImage = UIImage(named: "harvest-bg-crop")
         let imageView = UIImageView(frame: view.bounds)
         imageView.image = backgroundImage
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         self.view.layer.allowsGroupOpacity = true
         view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
@@ -114,6 +116,14 @@ class ItemDetailsViewController: UIViewController {
             default:
                 return
         }
+    }
+    
+    @IBSegueAction func addGraphView(_ coder: NSCoder) -> UIViewController? {
+        let hostingController = UIHostingController(coder: coder, rootView: ItemChartViewSUI())
+        
+        hostingController?.view.backgroundColor = .clear
+        
+        return hostingController
     }
     
 }
