@@ -48,7 +48,7 @@ class ItemDetailsViewController: UIViewController {
     }
     
     func setupBackground() {
-        let backgroundImage = UIImage(named: "harvest-bg-crop")
+        let backgroundImage = UIImage(named: "heist-bg-crop")
         let imageView = UIImageView(frame: view.bounds)
         imageView.image = backgroundImage
         imageView.contentMode = .scaleToFill
@@ -70,9 +70,6 @@ class ItemDetailsViewController: UIViewController {
         priceInChaosLabel.text = "\(self.selectedItem.priceInChaos)x"
         chaosPriceImage.image = UIImage(named: "CurrencyIcon")
         self.currencySelectionButton.setTitle("Have: \(self.tradeSearchHaveCurrency) Orb", for: .normal)
-        //        if let exaltPrice = selectedItem.priceInExalt {
-        //           priceInExalt.text = String(exaltPrice)
-        //        }
     }
     
     //MARK: - Segues
@@ -112,7 +109,6 @@ class ItemDetailsViewController: UIViewController {
                 let tradeDestination = segue.destination as! TradeViewController
                 tradeDestination.wantItem = self.selectedItem
                 tradeDestination.haveItem = self.tradeSearchHaveCurrency.lowercased()
-            /* TODO: Implement selection between chaos or exalt for paying price */
             default:
                 return
         }

@@ -15,7 +15,6 @@ protocol ItemManagerDelegate {
 }
 
 struct ItemManager {
-    let apiURL = "https://poe.ninja/api/data/"
     var itemCategory: String!
     var itemTypeOverview = String()
     var delegate: ItemManagerDelegate?
@@ -26,7 +25,7 @@ struct ItemManager {
         //MARK: - TEST
         self.itemTypeOverview = ItemListModel.getItemTypeOverview(itemCategory: itemCategory)
         
-        let originalUrl = "\(apiURL)\(self.itemTypeOverview)?league=\(leagueName)&type=\(itemCategory)"
+        let originalUrl = "\(K.API.apiURL)\(self.itemTypeOverview)?league=\(leagueName)&type=\(itemCategory)"
         let urlString = originalUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         performRequest(with: urlString!, itemTypeOverview: itemTypeOverview)
     }
@@ -50,7 +49,7 @@ struct ItemManager {
         }
     }
     
-    //MARK: - TEST CODE
+    //MARK: - Parse Code
     
     func parseJSON(_ itemData: Data) -> [ItemModel]? {
         let decoder = JSONDecoder()
@@ -72,7 +71,6 @@ struct ItemManager {
                         let id  = item.pay?.payCurrencyID ?? item.receive?.getCurrencyID
                         let itemDetails = decodedItems.currencyDetails![id! - 1]
                         itemCollection.append(ItemModel(id: item.getItemId(), name: item.currencyTypeName, icon: itemDetails.icon, mapTier: nil, levelRequired: nil, baseType: nil, stackSize: nil, variant: nil, prophecyText: nil, links: nil, itemClass: nil, flavourText: nil, corrupted: false, gemLevel: nil, gemQuality: nil, itemType: nil, priceInChaos: item.chaosEquivalent, exaltedValue: nil, totalChange: item.receiveSparkLine.totalChange, count: nil, detailsId: itemDetails.tradeId, mapRegion: nil, itemCategory: self.itemCategory))
-                        
                     }
                 }
             } catch {
@@ -83,35 +81,4 @@ struct ItemManager {
         }
         return itemCollection
     }
-    
-    //MARK: - Working Old
-    //    func parseJSON(_ itemData: Data) -> [ItemModel]? {
-    //        let decoder = JSONDecoder()
-    //        var itemCollection: [ItemModel] = []
-    //
-    //        do {
-    //            let decodedItems = try decoder.decode(ItemData.self, from: itemData)
-    //            if !decodedItems.lines!.isEmpty {
-    //                for item in decodedItems.lines! {
-    //                    let type = item.getItemBaseType(itemCategory: self.itemCategory)
-    //                    itemCollection.append(ItemModel(id: item.id, name: item.name, icon: item.icon ?? "", priceInChaos: item.chaosValue, priceInExalt: item.exaltedValue ?? 0, totalChange: item.sparkline.totalChange, tradeId: item.detailsId, gemLevel: item.gemLevel ?? 0, gemQuality: item.gemQuality ?? 0, flavourText: item.flavourText, itemCategory: self.itemCategory, itemLevel: item.levelRequired ?? 0, influence: item.variant ?? "", itemBaseType: type, itemType: item.itemType ?? ""))
-    //                }
-    //            }
-    //        } catch {
-    //            do {
-    //                let decodedItems = try decoder.decode(CurrencyData.self, from: itemData)
-    //                if !decodedItems.lines!.isEmpty {
-    //                    for item in decodedItems.lines! {
-    //                        let id = item.pay?.payCurrencyID ?? item.receive?.getCurrencyID
-    //                        let itemDetails = decodedItems.currencyDetails![id! - 1]
-    //                        itemCollection.append(ItemModel(id: id ?? 0, name: item.currencyTypeName, icon: itemDetails.icon, priceInChaos: item.chaosEquivalent, priceInExalt: 0, totalChange: item.receiveSparkLine.totalChange, tradeId: itemDetails.tradeID, gemLevel: nil, gemQuality: nil, flavourText: nil, itemCategory: self.itemCategory, itemLevel: nil, influence: nil, itemBaseType: nil, itemType: nil))
-    //                    }
-    //                }
-    //            } catch {
-    //                delegate?.didFailWithError(error: error)
-    //                return nil
-    //            }
-    //        }
-    //        return itemCollection
-    //    }
 }

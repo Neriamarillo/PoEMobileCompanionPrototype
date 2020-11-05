@@ -14,12 +14,11 @@ protocol LeagueManagerDelegate {
 }
 
 struct LeagueManager {
-    let leagueUrl = "https://api.pathofexile.com/leagues?type=main"
     
     var delegate: LeagueManagerDelegate?
     
     func fetchLeagues() {
-        performRequest(with: leagueUrl)
+        performRequest(with: K.League.leagueUrl)
     }
     
     func performRequest(with urlString: String) {

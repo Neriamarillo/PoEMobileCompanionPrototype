@@ -28,7 +28,6 @@ class TradeManager {
     var parameters = String()
     var league = String()
     
-    
     func createUrl(wantItem: ItemModel, haveItem: String, status: String) {
         league = UserDefaults.standard.string(forKey: "CurrentLeague")!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         print("Want: \(wantItem.detailsId!), Have: \(haveItem), Status: \(status), Current League: \(self.league)")
@@ -63,7 +62,7 @@ class TradeManager {
         let postData = parameters.data(using: .utf8)
         print(self.league)
         
-        var request = URLRequest(url: URL(string: "https://www.pathofexile.com/api/trade/\(self.searchType)/\(self.league)")!, timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "\(K.Trade.tradeUrl)/\(self.searchType)/\(self.league)")!, timeoutInterval: Double.infinity)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"

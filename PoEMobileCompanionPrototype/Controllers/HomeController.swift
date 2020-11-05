@@ -30,7 +30,7 @@ class HomeController: UITableViewController {
         }
         navigationItem.rightBarButtonItem =
             UIBarButtonItem(title: "League: \(self.selectedLeague!)", style: .plain, target: self, action: #selector(presentPopover))
-        let backgroundImage = UIImage(named: "harvest-bg-crop")
+        let backgroundImage = UIImage(named: "heist-bg-crop.jpg")
         let imageView = UIImageView(image: backgroundImage)
         //        imageView.alpha = 0.8
         imageView.contentMode = .scaleAspectFill
@@ -50,9 +50,9 @@ class HomeController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = #colorLiteral(red: 0.07800000161, green: 0.07800000161, blue: 0.07800000161, alpha: 0.8).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.07800000161, green: 0.07800000161, blue: 0.07800000161, alpha: 0.8).withAlphaComponent(0.5)
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.0390000008, green: 0.0390000008, blue: 0.0390000008, alpha: 0.8).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.0390000008, green: 0.0390000008, blue: 0.0390000008, alpha: 0.8).withAlphaComponent(0.5)
         }
         
         cell.itemLabel?.text = ItemListModel.itemTypeStrings[indexPath.row]

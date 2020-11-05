@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ItemChartViewSUI: View {
     var body: some View {
-        Text("Hello, World!").foregroundColor(.red)
+        /* TODO: Create a SwiftUI chart for the current prices */
+        Text("")
     }
 }
 

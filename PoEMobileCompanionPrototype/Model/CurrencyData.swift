@@ -52,11 +52,9 @@ struct CurrencyDetail: Decodable {
     let id: Int
     let icon: String
     let name: String
-    let poeTradeID: Int
     let tradeId: String?
 
     enum CodingKeys: String, CodingKey {
         case id, icon, name, tradeId
-        case poeTradeID = "poeTradeId"
     }
 }

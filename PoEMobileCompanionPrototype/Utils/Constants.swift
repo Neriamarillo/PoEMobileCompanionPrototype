@@ -8,6 +8,17 @@
 
 import Foundation
 
-struct K {
+enum K {
     
+    enum API {
+        static let apiURL = "https://poe.ninja/api/data/"
+    }
+    
+    enum Trade {
+        static let tradeUrl = "https://www.pathofexile.com/api/trade"
+    }
+    
+    enum League {
+        static let leagueUrl = "https://api.pathofexile.com/leagues?type=main"
+    }
 }

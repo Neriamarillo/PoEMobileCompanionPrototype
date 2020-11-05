@@ -62,7 +62,7 @@ class ItemSublistViewController : UITableViewController {
     }
     
     func setupBackground() {
-        let backgroundImage = UIImage(named: "harvest-bg-crop" )
+        let backgroundImage = UIImage(named: "heist-bg-crop" )
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleAspectFill
         self.tableView.backgroundView = imageView
@@ -83,9 +83,9 @@ class ItemSublistViewController : UITableViewController {
         
         let item = filteredItems[indexPath.row]
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = #colorLiteral(red: 0.07800000161, green: 0.07800000161, blue: 0.07800000161, alpha: 0.8).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.07800000161, green: 0.07800000161, blue: 0.07800000161, alpha: 0.8).withAlphaComponent(0.5)
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.0390000008, green: 0.0390000008, blue: 0.0390000008, alpha: 0.8).withAlphaComponent(0.8)
+            cell.backgroundColor = #colorLiteral(red: 0.0390000008, green: 0.0390000008, blue: 0.0390000008, alpha: 0.8).withAlphaComponent(0.5)
         }
         cell.itemLabel?.text = item.name
         
